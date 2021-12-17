@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     private Quaternion _startRotation;
     private float _waterJetRotation_Y = 0f;
     [SerializeField] private Rigidbody _playerRB;
+<<<<<<< HEAD
+=======
+    public BoatController boatController;
+>>>>>>> cceec04d45844bb66d75b25d3567bf2e7a40a385
     float force = 1;
     private void Awake()
     {
