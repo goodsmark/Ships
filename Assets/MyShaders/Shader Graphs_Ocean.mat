@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_a003b5601329474aae8a12ae4ea38578: 0.84
+    - Vector1_a003b5601329474aae8a12ae4ea38578: 0.81
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10
@@ -65,9 +65,9 @@ Material:
     - _DstBlend: 10
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
-    - _NormalMapTiling: 0.06
+    - _NormalMapTiling: 0.23
     - _NormalMapTiling_1: 0.05
-    - _NormalStrenght: 0.621
+    - _NormalStrenght: 0.209
     - _OpaqueCullMode: 2
     - _RayTracing: 0
     - _ReceivesSSR: 1
@@ -104,8 +104,8 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - Color_28139c98aab84befa6fa8c186125b688: {r: 0.24519402, g: 0.43944916, b: 0.5471698, a: 0.5686275}
-    - Color_7c8b3712f9ca46d1af5a2dfdf9d2e0c2: {r: 0.11672304, g: 0.4063642, b: 0.5754717, a: 0.5882353}
+    - Color_28139c98aab84befa6fa8c186125b688: {r: 0.1533019, g: 0.44596907, b: 0.6132076, a: 0.5686275}
+    - Color_7c8b3712f9ca46d1af5a2dfdf9d2e0c2: {r: 0.11058207, g: 0.24947858, b: 0.3301887, a: 0.5882353}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

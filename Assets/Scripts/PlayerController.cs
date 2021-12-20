@@ -1,96 +1,56 @@
-
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    public GameObject player;
-    public Transform steeringWheel;
+    public float speed, maxSpeed, angularSpeed;
 
-    public float moveSpeed;
-    public float rotateSpeed;
-    public float Drag = 0.1f;
+    [SerializeField] Transform motor;
+    [SerializeField] Rigidbody _playerRB;
+    [SerializeField] Trajectory trajectory;
 
-    private Quaternion _startRotation;
-    private float _waterJetRotation_Y = 0f;
-    [SerializeField] private Rigidbody _playerRB;
-<<<<<<< HEAD
-=======
-    public BoatController boatController;
->>>>>>> cceec04d45844bb66d75b25d3567bf2e7a40a385
-    float force = 1;
-    private void Awake()
+
+    protected Quaternion startMotorRotation;
+
+    void Start()
     {
-        _playerRB = player.GetComponent<Rigidbody>();
-        _startRotation = steeringWheel.localRotation;
+        _playerRB = GetComponent<Rigidbody>();
+        startMotorRotation = motor.localRotation;
     }
 
-    // Update is called once per frame
+   
     void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+           
+        }
+
         Movement();
+        BalanceBoat(_playerRB.transform.rotation.z);
     }
-    private void Update()
+
+    void Movement()
     {
-       
-       
-    }
-   
-    void SteeringWheelRotate() {
-        if (Input.GetKey(KeyCode.A))
-        {
-            _waterJetRotation_Y = steeringWheel.localEulerAngles.y + 1f;
-
-            if (_waterJetRotation_Y > 50f && _waterJetRotation_Y < 270f)
-            {
-                _waterJetRotation_Y = 50f;
-            }
-
-            Vector3 newRotation = new Vector3(0f, _waterJetRotation_Y, 0f);
-
-            steeringWheel.localEulerAngles = newRotation;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            _waterJetRotation_Y = steeringWheel.localEulerAngles.y - 1f;
-
-            if (_waterJetRotation_Y < 310f && _waterJetRotation_Y > 90f)
-            {   
-                _waterJetRotation_Y = 310f;
-            }
-
-            Vector3 newRotation = new Vector3(0f, _waterJetRotation_Y, 0f);
-
-            steeringWheel.localEulerAngles = newRotation;
-        }
-    }
-    void Movement() {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
-        //_playerRB.AddRelativeForce(Vector3.forward * moveY * moveSpeed);
-        //_playerRB.AddRelativeTorque(0f, moveX * rotateSpeed, 0f);
-
-        var steer = 0;
-
-        //steer direction [-1,0,1]
-        if (Input.GetKey(KeyCode.A))
-            steer = 1;
-        if (Input.GetKey(KeyCode.D))
-            steer = -1;
-        var forward = Vector3.Scale(new Vector3(1, 0, 1), transform.forward);
-        if (Input.GetKey(KeyCode.W))
-        {
-            _playerRB.AddForce(forward * moveSpeed);
-        }
-        //Rotational Force
-        _playerRB.AddForceAtPosition(steer * transform.right * moveSpeed / 100f, steeringWheel.position);
-        var targetVel = Vector3.zero;
-        steeringWheel.SetPositionAndRotation(steeringWheel.position, transform.rotation * _startRotation * Quaternion.Euler(0, 30f * steer, 0));
-
-        var movingForward = Vector3.Cross(transform.forward, _playerRB.velocity).y < 0;
-
-        //move in direction
-        _playerRB.velocity = Quaternion.AngleAxis(Vector3.SignedAngle(_playerRB.velocity, (movingForward ? 1f : 0f) * transform.forward, Vector3.up) * Drag, Vector3.up) * _playerRB.velocity;
-        steeringWheel.Rotate(new Vector3(0f,0f,0f),0f);
+        float moveX = Input.GetAxis("Vertical");
+        float moveY = Input.GetAxis("Horizontal");
+        motor.SetPositionAndRotation(motor.position, transform.rotation * startMotorRotation * Quaternion.Euler(0, 30f * -moveY, 0));
+        _playerRB.AddForceAtPosition(moveY * -transform.right * angularSpeed / 100f, motor.position);
+        _playerRB.AddRelativeForce(Vector3.forward *moveX * speed);
 
     }
+
+    void BalanceBoat(float transRotationZ)
+    {
+        if (transRotationZ > 0.60f || transRotationZ < -0.60f)
+        {
+            _playerRB.isKinematic = true;
+            _playerRB.transform.rotation = Quaternion.Euler(_playerRB.transform.rotation.x, _playerRB.transform.rotation.y, 0);
+            _playerRB.isKinematic = false;
+        }
+    }
+    
+    
 }

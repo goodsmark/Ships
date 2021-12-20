@@ -6,7 +6,6 @@ using UnityEngine;
 public class OceanManager : MonoBehaviour
 {
 
-<<<<<<< HEAD
     public float waveHeight = 7f, waveFrenquency = 1f, waveSpeed = 1f;
 
     public Transform ocean;
@@ -14,8 +13,8 @@ public class OceanManager : MonoBehaviour
     public static OceanManager instance;
 
 
-    Material oceanMat;
-    Texture2D displacementWater;
+    Material _oceanMat;
+    Texture2D _displacementWater;
 
     private void Awake()
     {
@@ -34,63 +33,29 @@ public class OceanManager : MonoBehaviour
 
     void SetVariables()
     {
-        oceanMat = ocean.GetComponent<Renderer>().sharedMaterial;
-        displacementWater = (Texture2D)oceanMat.GetTexture("_WaveDisplacement");
-=======
-    public float waveHeight = 0.5f, waveFrenquency = 1f, waveSpeed = 1f;
-
-    public Transform ocean;
-
-    Material oceanMat;
-    Texture2D displacementWater;
-
-    void Start()
-    {
-        
-    }
-
-    void SetVariables()
-    {
-        oceanMat = ocean.GetComponent<Renderer>().sharedMaterial;
-        displacementWater = (Texture2D)oceanMat.GetTexture("");
->>>>>>> cceec04d45844bb66d75b25d3567bf2e7a40a385
+        _oceanMat = ocean.GetComponent<Renderer>().sharedMaterial;
+        _displacementWater = (Texture2D)_oceanMat.GetTexture("_WaveDisplacement");
     }
 
     public float WaterHeightAtPositions( Vector3 position)
     {
-<<<<<<< HEAD
-        return ocean.position.y + displacementWater.GetPixelBilinear(position.x * waveFrenquency / 100, position.z * waveFrenquency / 100 + Time.time * waveSpeed / 100).g * waveHeight / 10 * ocean.localScale.x;
+        return ocean.position.y + _displacementWater.GetPixelBilinear(position.x * waveFrenquency / 100, position.z * waveFrenquency / 100 + Time.time * waveSpeed / 100).g * waveHeight / 10 * ocean.localScale.x;
     }
 
-=======
-        return ocean.position.y + displacementWater.GetPixelBilinear(position.x * waveFrenquency, position.z * waveFrenquency + Time.time * waveSpeed).g * waveHeight * ocean.localScale.x;
-    }
->>>>>>> cceec04d45844bb66d75b25d3567bf2e7a40a385
     private void OnValidate()
     {
-        if (!oceanMat)
+        if (!_oceanMat)
         {
             SetVariables();
-<<<<<<< HEAD
         }
         UpdateMaterial();
-=======
-            UpdateMaterial();
-        }
->>>>>>> cceec04d45844bb66d75b25d3567bf2e7a40a385
     }
 
     private void UpdateMaterial()
     {
-<<<<<<< HEAD
-        oceanMat.SetFloat("_WavesSpeed", waveSpeed / 100);
-        oceanMat.SetFloat("_WavesFrenquency", waveFrenquency / 100);
-        oceanMat.SetFloat("_WavesHeights", waveHeight / 10);
-=======
-        oceanMat.SetFloat("_RefractionSpeed", waveSpeed);
-        oceanMat.SetFloat("_RefractionStrenght", waveFrenquency);
-        oceanMat.SetFloat("", waveHeight);
->>>>>>> cceec04d45844bb66d75b25d3567bf2e7a40a385
+        _oceanMat.SetFloat("_WavesSpeed", waveSpeed / 100);
+        _oceanMat.SetFloat("_WavesFrenquency", waveFrenquency / 100);
+        _oceanMat.SetFloat("_WavesHeights", waveHeight);
     }
 }
 
