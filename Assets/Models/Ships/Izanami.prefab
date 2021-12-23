@@ -2251,7 +2251,7 @@ GameObject:
   - component: {fileID: 710248346658661536}
   - component: {fileID: 710248346658661537}
   - component: {fileID: 710248346658661542}
-  - component: {fileID: 32603749}
+  - component: {fileID: 933433424}
   m_Layer: 0
   m_Name: Izanami
   m_TagString: Untagged
@@ -2333,7 +2333,7 @@ MonoBehaviour:
   airDrag: 0
   airAngularDrag: 0.05
   floatingPower: 15
---- !u!114 &32603749
+--- !u!114 &933433424
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2342,14 +2342,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7163470563846809893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8593f7ed2738ab542956dbe87b8205a3, type: 3}
+  m_Script: {fileID: 11500000, guid: c7bcb5483f6f5594bb6a6568bdb86eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 200
+  speed: 100
   maxSpeed: 0
   angularSpeed: 1000
-  motor: {fileID: 3392385249847147942}
-  _playerRB: {fileID: 0}
   trajectory: {fileID: 0}
 --- !u!1 &7163470563846814867
 GameObject:
@@ -3314,7 +3312,7 @@ GameObject:
   - component: {fileID: 3444720019588208137}
   m_Layer: 0
   m_Name: motor
-  m_TagString: Untagged
+  m_TagString: Motor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

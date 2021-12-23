@@ -4,39 +4,41 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Izanami : MonoBehaviour, IShips
+public class Izanami : MonoBehaviour, IShips, ITrajectory
 {
-    public float speed =50f, maxSpeed, angularSpeed = 500f;
+    public float speed =100f, maxSpeed, angularSpeed = 1000f;
+    public Transform[] leftGuns;
 
+   [SerializeField]Trajectory trajectory;
+    MotherMainOfShips motherMainOfShips;
     Transform motor;
     Rigidbody _playerRB;
-    [SerializeField] Trajectory trajectory;
 
     protected Quaternion startMotorRotation;
 
-    void Start()
+    void Awake()
     {
+        motherMainOfShips = FindObjectOfType<MotherMainOfShips>();
         _playerRB = GetComponent<Rigidbody>();
         motor = transform.Find("motor");
         startMotorRotation = motor.localRotation;
-    }
-
-    public void BalanceBoat()
-    {
-        if (_playerRB.transform.rotation.z > 0.60f || _playerRB.transform.rotation.z < -0.60f)
-        {
-            _playerRB.isKinematic = true;
-            _playerRB.transform.rotation = Quaternion.Euler(_playerRB.transform.rotation.x, _playerRB.transform.rotation.y, 0);
-            _playerRB.isKinematic = false;
-        }
+        trajectory = FindObjectOfType<Trajectory>();
     }
 
     public void Movement()
     {
-        float moveX = Input.GetAxis("Vertical");
-        float moveY = Input.GetAxis("Horizontal");
-        motor.SetPositionAndRotation(motor.position, transform.rotation * startMotorRotation * Quaternion.Euler(0, 30f * -moveY, 0));
-        _playerRB.AddForceAtPosition(moveY * -transform.right * angularSpeed / 100f, motor.position);
-        _playerRB.AddRelativeForce(Vector3.forward * moveX * speed);
+        motherMainOfShips.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
+    }
+
+    public void BalanceBoat()
+    {
+        motherMainOfShips.BalanceBoat(_playerRB);
+    }
+
+    public void WriteTrajectory()
+    {
+        
+        Vector3 speed = leftGuns[0].transform.forward * 50f;
+        trajectory.WriteTrajectory(leftGuns[0].transform.position, speed );
     }
 }
