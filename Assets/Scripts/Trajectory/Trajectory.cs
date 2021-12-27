@@ -22,4 +22,8 @@ public class Trajectory : MonoBehaviour
         }
         _lineRenderer.SetPositions(points);
     }
+
+    public void ClearTrajectory() {
+        _lineRenderer.SetPositions(new Vector3[0]);
+    }
 }

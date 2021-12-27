@@ -8,12 +8,10 @@ public class Cannonballs : AmmunitionMain, IAmmunitionMain
     public float roundSpeed;
 
     [SerializeField]GameObject cannonbal;
-    AmmunitionMain ammunitionMain;
     Izanami izanami;
 
     void Start() {
 
-        ammunitionMain = FindObjectOfType<AmmunitionMain>();
         izanami = FindObjectOfType<Izanami>();
     }
 

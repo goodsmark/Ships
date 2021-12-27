@@ -10,7 +10,6 @@ public class Izanami : MonoBehaviour, IShips, ITrajectory
     public Transform[] leftGuns;
 
    [SerializeField]Trajectory trajectory;
-    MotherMainOfShips motherMainOfShips;
     Transform motor;
     Rigidbody _playerRB;
 
@@ -18,7 +17,6 @@ public class Izanami : MonoBehaviour, IShips, ITrajectory
 
     void Awake()
     {
-        motherMainOfShips = FindObjectOfType<MotherMainOfShips>();
         _playerRB = GetComponent<Rigidbody>();
         motor = transform.Find("motor");
         startMotorRotation = motor.localRotation;
@@ -27,18 +25,21 @@ public class Izanami : MonoBehaviour, IShips, ITrajectory
 
     public void Movement()
     {
-        motherMainOfShips.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
+        MotherMainOfShips.motherMainOfShips.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
     }
 
     public void BalanceBoat()
     {
-        motherMainOfShips.BalanceBoat(_playerRB);
+        MotherMainOfShips.motherMainOfShips.BalanceBoat(_playerRB);
     }
 
     public void WriteTrajectory()
     {
+        for (int i = 0; i < leftGuns.Length; i++)
+        {
+            Vector3 speed = leftGuns[i].transform.forward * 50f;
+            trajectory.WriteTrajectory(leftGuns[i].transform.position, speed );
+        }
         
-        Vector3 speed = leftGuns[0].transform.forward * 50f;
-        trajectory.WriteTrajectory(leftGuns[0].transform.position, speed );
     }
 }

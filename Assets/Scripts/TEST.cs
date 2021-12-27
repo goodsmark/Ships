@@ -12,6 +12,7 @@ public class TEST : MonoBehaviour
     IShips shipTarget1;
     void Start()
     {
+
         ammunitionMain = FindObjectOfType<Cannonballs>();
         shipTarget = FindObjectOfType<Izanami>();
         trajectory = FindObjectOfType<Izanami>();
@@ -39,7 +40,7 @@ public class TEST : MonoBehaviour
 
         }
         {
-
+            //trajectory.
         }
     }
 }
