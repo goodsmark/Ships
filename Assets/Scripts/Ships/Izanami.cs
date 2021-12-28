@@ -7,11 +7,13 @@ using UnityEngine;
 public class Izanami : MonoBehaviour, IShips, ITrajectory
 {
     public float speed =100f, maxSpeed, angularSpeed = 1000f;
+    
     public Transform[] leftGuns;
 
-   [SerializeField]Trajectory trajectory;
+    Trajectory trajectory;
     Transform motor;
     Rigidbody _playerRB;
+    Transform trajectoryGO;
 
     protected Quaternion startMotorRotation;
 
@@ -19,6 +21,7 @@ public class Izanami : MonoBehaviour, IShips, ITrajectory
     {
         _playerRB = GetComponent<Rigidbody>();
         motor = transform.Find("motor");
+        trajectoryGO = transform.Find("Trajectory");
         startMotorRotation = motor.localRotation;
         trajectory = FindObjectOfType<Trajectory>();
     }
@@ -32,14 +35,17 @@ public class Izanami : MonoBehaviour, IShips, ITrajectory
     {
         MotherMainOfShips.motherMainOfShips.BalanceBoat(_playerRB);
     }
-
     public void WriteTrajectory()
     {
-        for (int i = 0; i < leftGuns.Length; i++)
-        {
-            Vector3 speed = leftGuns[i].transform.forward * 50f;
-            trajectory.WriteTrajectory(leftGuns[i].transform.position, speed );
-        }
-        
+        Vector3 direction = Aiming.aiming.GetTransformAim() - trajectoryGO.transform.position;
+        trajectoryGO.transform.rotation = Quaternion.LookRotation(direction, Vector3.forward);
+        Vector3 speed = trajectoryGO.transform.forward * 200;
+        trajectory.WriteTrajectory(trajectoryGO.transform.position, speed);
+
     }
+    public void TakeAim()
+    {
+        Aiming.aiming.onAiming(leftGuns);
+    }
+    
 }

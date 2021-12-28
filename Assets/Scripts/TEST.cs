@@ -9,14 +9,13 @@ public class TEST : MonoBehaviour
     ITrajectory trajectory;
     IAmmunitionMain ammunitionMain;
     IShips shipTarget;
-    IShips shipTarget1;
+    Izanami izanami;
     void Start()
     {
-
+        izanami = FindObjectOfType<Izanami>();
         ammunitionMain = FindObjectOfType<Cannonballs>();
         shipTarget = FindObjectOfType<Izanami>();
         trajectory = FindObjectOfType<Izanami>();
-        shipTarget1 = FindObjectOfType<TestBoat>();
 
     }
 
@@ -25,17 +24,16 @@ public class TEST : MonoBehaviour
     {
         shipTarget.Movement();
         shipTarget.BalanceBoat();
-        shipTarget1.Movement();
-        shipTarget1.BalanceBoat();
         if (Input.GetKey(KeyCode.Mouse0))
         {
             ammunitionMain.Fire();
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetMouseButton(1))
         {
             trajectory.WriteTrajectory();
+            izanami.TakeAim();
         }
-        else if (Input.GetKeyUp(KeyCode.Mouse1))
+        else if (Input.GetMouseButtonUp(1))
         {
 
         }

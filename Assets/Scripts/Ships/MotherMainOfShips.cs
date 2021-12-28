@@ -32,7 +32,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
         float moveX = Input.GetAxis("Vertical");
         float moveY = Input.GetAxis("Horizontal");
         motor.SetPositionAndRotation(motor.position, transform.rotation * startMotorRotation * Quaternion.Euler(0, 30f * -moveY, 0));
-        rigidbody.AddForceAtPosition(moveY * -transform.right * angularSpeed / 100f, motor.position);
-        rigidbody.AddRelativeForce(Vector3.forward * moveX * speed);
+        rigidbody.AddForceAtPosition(moveY * -transform.right * angularSpeed / 10f, motor.position);
+        rigidbody.AddRelativeForce(Vector3.forward * moveX * speed, ForceMode.Impulse);
     }
 }
