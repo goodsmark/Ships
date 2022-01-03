@@ -15,9 +15,14 @@ public class Cannonballs : AmmunitionMain, IAmmunitionMain
         izanami = FindObjectOfType<Izanami>();
     }
 
-    public void Fire()
+    public void Fire(Transform[] gunPosition)
     {
         
-       ammunitionMain.Fire(cannonbal, roundSpeed, izanami.TakeAim());
+       ammunitionMain.Fire(cannonbal, roundSpeed, gunPosition);
+    }
+    public void Fire(Transform gunPosition)
+    {
+
+        ammunitionMain.Fire(cannonbal, roundSpeed, gunPosition);
     }
 }

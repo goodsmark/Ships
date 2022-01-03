@@ -30,7 +30,7 @@ public class Aiming : MonoBehaviour
         Ray ray = _MainCamera.ScreenPointToRay(Input.mousePosition);
         Vector3 direction = aimForGun.transform.position - gunPosition.transform.position;
         gunPosition.transform.rotation = Quaternion.LookRotation(direction, Vector3.forward);
-        float distance = Vector3.Distance(aimForGun.transform.position, gunPosition.transform.position);
+        //float distance = Vector3.Distance(aimForGun.transform.position, gunPosition.transform.position);
         if (Physics.Raycast(ray, out hit))
         {
             aimForGun.position = ray.origin + ray.direction;
@@ -47,7 +47,7 @@ public class Aiming : MonoBehaviour
         {
             Vector3 direction = aimForGun.transform.position - gunPosition[i].transform.position;
             gunPosition[i].transform.rotation = Quaternion.LookRotation(direction, -Vector3.forward);
-            float distance = Vector3.Distance(aimForGun.transform.position, gunPosition[i].transform.position);
+            //float distance = Vector3.Distance(aimForGun.transform.position, gunPosition[i].transform.position);
         }
         if (Physics.Raycast(ray, out hit))
         {

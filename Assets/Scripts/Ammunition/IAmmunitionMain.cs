@@ -2,5 +2,5 @@ using UnityEngine;
 
 interface IAmmunitionMain
 {
-    void Fire();
+    void Fire(Transform[] gunPosition);
 }

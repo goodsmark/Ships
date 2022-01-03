@@ -33,4 +33,19 @@ public class TestBoat : MotherMainOfShips, IShips
     {
         motherMainOfShips.BalanceBoat(_playerRB);
     }
+
+    public void WriteTrajectoryForSides()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void TakeAim()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Fire()
+    {
+        throw new System.NotImplementedException();
+    }
 }

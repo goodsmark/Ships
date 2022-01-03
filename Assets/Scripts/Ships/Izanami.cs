@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Izanami : MonoBehaviour, IShips, ITrajectory
+public class Izanami : MonoBehaviour, IShips
 {
     public float speed =100f, maxSpeed, angularSpeed = 1000f;
     
@@ -15,9 +15,9 @@ public class Izanami : MonoBehaviour, IShips, ITrajectory
     Transform motor;
     Rigidbody _playerRB;
     Transform trajectoryGO;
-    [SerializeField]SideChanger changer;
+    IAmmunitionMain ammunitionMain;
 
-    int stay = 0;
+    byte stay = 0;
 
     protected Quaternion startMotorRotation;
 
@@ -28,6 +28,7 @@ public class Izanami : MonoBehaviour, IShips, ITrajectory
         trajectoryGO = transform.Find("Trajectory");
         startMotorRotation = motor.localRotation;
         trajectory = FindObjectOfType<Trajectory>();
+        ammunitionMain = FindObjectOfType<Cannonballs>();
     }
 
     public void Movement()
@@ -49,29 +50,35 @@ public class Izanami : MonoBehaviour, IShips, ITrajectory
     {
         MotherMainOfShips.motherMainOfShips.BalanceBoat(_playerRB);
     }
-    public void WriteTrajectory()
+    public void WriteTrajectoryForSides()
     {
+        stay = SideChanger.changer.ChangeSide(_playerRB.transform);
+        if (stay == 1)
+        {
+            Aiming.aiming.onAiming(rightGuns);
+        }
+        else if (stay == 2)
+        {
+            Aiming.aiming.onAiming(leftGuns);
+        }
+
         Vector3 direction = Aiming.aiming.GetTransformAim() - trajectoryGO.transform.position;
         trajectoryGO.transform.rotation = Quaternion.LookRotation(direction, Vector3.forward);
         Vector3 speed = trajectoryGO.transform.forward * 200;
         trajectory.WriteTrajectory(trajectoryGO.transform.position, speed);
 
     }
-    public Transform[] TakeAim()
+    public void Fire()
     {
-        stay = changer.ChangeSide(_playerRB.transform);
         if (stay == 1)
         {
-            Aiming.aiming.onAiming(rightGuns);
-            return rightGuns;
+            ammunitionMain.Fire(rightGuns);
         }
         else if (stay == 2)
         {
-            Aiming.aiming.onAiming(leftGuns);
-            return leftGuns;
+            ammunitionMain.Fire(leftGuns);
         }
-        return leftGuns;
-
     }
-    
+
+
 }

@@ -6,17 +6,10 @@ using UnityEngine;
 
 public class TEST : MonoBehaviour
 {
-    ITrajectory trajectory;
-    IAmmunitionMain ammunitionMain;
     IShips shipTarget;
-    Izanami izanami;
     void Start()
     {
-        izanami = FindObjectOfType<Izanami>();
-        ammunitionMain = FindObjectOfType<Cannonballs>();
         shipTarget = FindObjectOfType<Izanami>();
-        trajectory = FindObjectOfType<Izanami>();
-
     }
 
     // Update is called once per frame
@@ -24,14 +17,12 @@ public class TEST : MonoBehaviour
     {
         shipTarget.Movement();
         shipTarget.BalanceBoat();
-
         if (Input.GetMouseButton(1))
         {
-            trajectory.WriteTrajectory();
-            izanami.TakeAim();
+            shipTarget.WriteTrajectoryForSides();
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                ammunitionMain.Fire();
+                shipTarget.Fire();
             }
         }
         else if (Input.GetMouseButtonUp(1))
