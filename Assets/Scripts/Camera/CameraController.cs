@@ -1,12 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-namespace RootMotion
-{
-
-	/// <summary>
-	/// 3rd person camera controller.
-	/// </summary>
 	public class CameraController : MonoBehaviour
 	{
 
@@ -83,6 +77,7 @@ namespace RootMotion
 		// Initiate, set the params to the current transformation of the camera relative to the target
 		protected virtual void Awake()
 		{
+
 			Vector3 angles = transform.eulerAngles;
 			x = angles.y;
 			y = angles.x;
@@ -91,7 +86,6 @@ namespace RootMotion
 			smoothPosition = transform.position;
 
 			cam = GetComponent<Camera>();
-
 			lastUp = rotationSpace != null ? rotationSpace.up : Vector3.up;
 		}
 
@@ -227,4 +221,3 @@ namespace RootMotion
 			this.distanceTarget = distanceTarget;
 		}
 	}
-}

@@ -24,14 +24,15 @@ public class TEST : MonoBehaviour
     {
         shipTarget.Movement();
         shipTarget.BalanceBoat();
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
-            ammunitionMain.Fire();
-        }
+
         if (Input.GetMouseButton(1))
         {
             trajectory.WriteTrajectory();
             izanami.TakeAim();
+            if (Input.GetKey(KeyCode.Mouse0))
+            {
+                ammunitionMain.Fire();
+            }
         }
         else if (Input.GetMouseButtonUp(1))
         {

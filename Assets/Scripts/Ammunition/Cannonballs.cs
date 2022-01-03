@@ -17,6 +17,7 @@ public class Cannonballs : AmmunitionMain, IAmmunitionMain
 
     public void Fire()
     {
-       ammunitionMain.Fire(cannonbal, roundSpeed, izanami.leftGuns);
+        
+       ammunitionMain.Fire(cannonbal, roundSpeed, izanami.TakeAim());
     }
 }
