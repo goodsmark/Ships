@@ -8,8 +8,8 @@ public class Izanami : MonoBehaviour, IShips
 {
     public float speed =100f, maxSpeed, angularSpeed = 1000f;
     
-    public Transform[] leftGuns;
-    public Transform[] rightGuns;
+    [SerializeField] Transform[] _leftGuns;
+    [SerializeField] Transform[] _rightGuns;
 
     Trajectory trajectory;
     Transform motor;
@@ -33,17 +33,7 @@ public class Izanami : MonoBehaviour, IShips
 
     public void Movement()
     {
-        // MotherMainOfShips.motherMainOfShips.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
-        if (Input.GetKey(KeyCode.W))
-        {
-            _playerRB.AddRelativeForce(Vector3.forward * speed);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            _playerRB.AddRelativeTorque(Vector3.up * speed);
-        }
-
-
+        MotherMainOfShips.motherMainOfShips.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
     }
 
     public void BalanceBoat()
@@ -55,11 +45,11 @@ public class Izanami : MonoBehaviour, IShips
         stay = SideChanger.changer.ChangeSide(_playerRB.transform);
         if (stay == 1)
         {
-            Aiming.aiming.onAiming(rightGuns);
+            Aiming.aiming.onAiming(_rightGuns);
         }
         else if (stay == 2)
         {
-            Aiming.aiming.onAiming(leftGuns);
+            Aiming.aiming.onAiming(_leftGuns);
         }
 
         Vector3 direction = Aiming.aiming.GetTransformAim() - trajectoryGO.transform.position;
@@ -72,11 +62,11 @@ public class Izanami : MonoBehaviour, IShips
     {
         if (stay == 1)
         {
-            ammunitionMain.Fire(rightGuns);
+            ammunitionMain.Fire(_rightGuns);
         }
         else if (stay == 2)
         {
-            ammunitionMain.Fire(leftGuns);
+            ammunitionMain.Fire(_leftGuns);
         }
     }
 
