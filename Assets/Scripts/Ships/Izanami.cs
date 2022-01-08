@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Izanami : MonoBehaviour, IShips
+public class Izanami : MotherMainOfShips, IShips
 {
     [Header("Movement")]
     
@@ -21,6 +21,7 @@ public class Izanami : MonoBehaviour, IShips
     Rigidbody _playerRB;
     Transform trajectoryGO;
     IAmmunitionMain ammunitionMain;
+    MotherMainOfShips izanami;
 
     byte stay = 0;
 
@@ -28,6 +29,7 @@ public class Izanami : MonoBehaviour, IShips
 
     void Awake()
     {
+        izanami = this;
         _playerRB = GetComponent<Rigidbody>();
         motor = transform.Find("motor");
         trajectoryGO = transform.Find("Trajectory");
@@ -38,12 +40,12 @@ public class Izanami : MonoBehaviour, IShips
 
     public void Movement()
     {
-        MotherMainOfShips.motherMainOfShips.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
+        izanami.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
     }
 
     public void BalanceBoat()
     {
-        MotherMainOfShips.motherMainOfShips.BalanceBoat(_playerRB);
+        izanami.BalanceBoat(_playerRB);
     }
     public void WriteTrajectoryForSides()
     {

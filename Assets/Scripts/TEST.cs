@@ -9,9 +9,13 @@ public class TEST : MonoBehaviour
     TEST player;
     IShips shipTarget;
     MotherMainOfShips shipsMain;
+    public List<IShips> collectionsShip;
+
     void Start()
     {
-        shipTarget = FindObjectOfType<Izanami>();
+        collectionsShip = new List<IShips>();
+        collectionsShip.Add(FindObjectOfType<Izanami>());
+        //collectionsShip.Add(FindObjectOfType<Fernand>());
         shipsMain  = FindObjectOfType<Fernand>();
         
     }
@@ -19,8 +23,12 @@ public class TEST : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Player.player_one.SWitchShip(shipTarget);
-        
+        foreach (var ship in collectionsShip)
+        {
+            Player.player_one.SWitchShip(ship);
+        }
+
+
 
         //shipTarget.Movement();
         //shipTarget.BalanceBoat();

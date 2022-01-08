@@ -4,19 +4,19 @@ using UnityEngine;
 
 public abstract class MotherMainOfShips : MonoBehaviour
 {
-    public static MotherMainOfShips motherMainOfShips;
+    //public static MotherMainOfShips motherMainOfShips;
 
-    private void Awake()
-    {
-        if (motherMainOfShips == null)
-        {
-            motherMainOfShips = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
+    //private void Awake()
+    //{
+    //    if (motherMainOfShips == null)
+    //    {
+    //        motherMainOfShips = this;
+    //    }
+    //    else
+    //    {
+    //        Destroy(this);
+    //    }
+    //}
     public void BalanceBoat(Rigidbody rigidbody)
     {
         if (rigidbody.transform.rotation.z > 0.60f || rigidbody.transform.rotation.z < -0.60f)

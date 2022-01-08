@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fernand : MotherMainOfShips
+public class Fernand : MotherMainOfShips, IShips
 {
     [Header("Movement")]
     public float speed = 100;
@@ -20,12 +20,14 @@ public class Fernand : MotherMainOfShips
     Rigidbody _playerRB;
     Transform trajectoryGO;
     IAmmunitionMain ammunitionMain;
+    MotherMainOfShips fernand;
 
     byte stay = 0;
 
     protected Quaternion startMotorRotation;
     void Awake()
     {
+        fernand = this;
         _playerRB = GetComponent<Rigidbody>();
         motor = transform.Find("motor");
         trajectoryGO = transform.Find("Trajectory");
@@ -36,12 +38,12 @@ public class Fernand : MotherMainOfShips
 
     public void Movement()
     {
-        motherMainOfShips.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
+        fernand.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
     }
 
     public void BalanceBoat()
     {
-        motherMainOfShips.BalanceBoat(_playerRB);
+        fernand.BalanceBoat(_playerRB);
     }
     public void WriteTrajectoryForSides()
     {

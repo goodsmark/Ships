@@ -5,8 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player player_one;
-
-
+    public List<IShips> ships;
     private void Start()
     {
         if (player_one == null)
