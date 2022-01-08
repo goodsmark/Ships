@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-interface IShips
+public interface IShips
 {
     void Movement();
     void BalanceBoat();

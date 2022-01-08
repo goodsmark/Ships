@@ -233,8 +233,10 @@ MonoBehaviour:
   speed: 100
   maxSpeed: 0
   angularSpeed: 500
-  _leftGuns: []
-  _rightGuns: []
+  _leftGuns:
+  - {fileID: 4214421217035656369}
+  _rightGuns:
+  - {fileID: 1606496580685892465}
 --- !u!114 &9018355086657791674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,8 +249,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6025260031c3d9945b23724ba1a579e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatersPoints: []
-  underWaterDrag: 1
+  floatersPoints:
+  - {fileID: 8900713277609003684}
+  - {fileID: 3853131403333877789}
+  - {fileID: 6034155328194262736}
+  - {fileID: 1962223231025719517}
+  - {fileID: 7134048687228517851}
+  - {fileID: 7339334738896442088}
+  - {fileID: 3881193572347047778}
+  underWaterDrag: 3
   underWaterAngularDrag: 1
   airDrag: 0
   airAngularDrag: 0.05
