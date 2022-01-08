@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Izanami : MonoBehaviour, IShips
+public class Fernand : MotherMainOfShips
 {
     [Header("Movement")]
-    
-    public float speed = 100f;
+    public float speed = 100;
     public float maxSpeed;
-    public float angularSpeed = 1000f;
+    public float angularSpeed = 500f;
+
     [Space(5f)]
+
     [Header("Transform GUN`s of ship (LEft and Ride)")]
     [SerializeField] Transform[] _leftGuns;
     [SerializeField] Transform[] _rightGuns;
@@ -25,7 +24,6 @@ public class Izanami : MonoBehaviour, IShips
     byte stay = 0;
 
     protected Quaternion startMotorRotation;
-
     void Awake()
     {
         _playerRB = GetComponent<Rigidbody>();
@@ -38,12 +36,12 @@ public class Izanami : MonoBehaviour, IShips
 
     public void Movement()
     {
-        MotherMainOfShips.motherMainOfShips.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
+        motherMainOfShips.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
     }
 
     public void BalanceBoat()
     {
-        MotherMainOfShips.motherMainOfShips.BalanceBoat(_playerRB);
+        motherMainOfShips.BalanceBoat(_playerRB);
     }
     public void WriteTrajectoryForSides()
     {
@@ -74,6 +72,4 @@ public class Izanami : MonoBehaviour, IShips
             ammunitionMain.Fire(_leftGuns);
         }
     }
-
-
 }

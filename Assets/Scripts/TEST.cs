@@ -10,6 +10,7 @@ public class TEST : MonoBehaviour
     void Start()
     {
         shipTarget = FindObjectOfType<Izanami>();
+        MotherMainOfShips[] shipsMain = {new Fernand() };
     }
 
     // Update is called once per frame

@@ -21,7 +21,6 @@ public class SideChanger : MonoBehaviour
     public byte ChangeSide(Transform boat)
     {
         float angle = Vector3.SignedAngle(boat.transform.forward, _camera.transform.position - boat.transform.position, Vector3.up);
-        print(angle);
         if (angle < -45f && angle > -130f)
         {
             //Debug.Log("Cmotry na pravo");
