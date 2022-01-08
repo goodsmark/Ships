@@ -16,6 +16,9 @@ public class TEST : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+
+
         shipTarget.Movement();
         shipTarget.BalanceBoat();
         if (Input.GetMouseButton(1))
