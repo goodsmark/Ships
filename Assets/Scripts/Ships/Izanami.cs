@@ -18,7 +18,8 @@ public class Izanami : MotherMainOfShips, IShips, IGUI
     [Space(5f)]
     [Header("Ammo")]
     public float maxReloadTime;
-    public float reloadTime;
+    public float reloadTimeL;
+    public float reloadTimeR;
 
     public GUI gUI;
 
@@ -42,6 +43,21 @@ public class Izanami : MotherMainOfShips, IShips, IGUI
         startMotorRotation = motor.localRotation;
         trajectory = FindObjectOfType<Trajectory>();
         ammunitionMain = FindObjectOfType<Cannonballs>();
+    }
+
+    void Update()
+    {
+        if (reloadTimeL < maxReloadTime)
+        {
+            reloadTimeL += Time.deltaTime;
+            
+        }
+        if (reloadTimeR < maxReloadTime)
+        {
+            reloadTimeR += Time.deltaTime;
+        }
+
+        print(reloadTimeL);
     }
 
     public void Movement()
@@ -75,21 +91,25 @@ public class Izanami : MotherMainOfShips, IShips, IGUI
     {
         if (stay == 1)
         {
-            if (TEST.shootTimer == maxReloadTime)
+            if (reloadTimeR >= maxReloadTime)
             {
                 ammunitionMain.Fire(_rightGuns);
-                TEST.shootTimer = 0;
+                reloadTimeR = 0;
             }
             
         }
         else if (stay == 2)
         {
-            ammunitionMain.Fire(_leftGuns);
+            if (reloadTimeL >= maxReloadTime)
+            {
+                ammunitionMain.Fire(_leftGuns);
+                reloadTimeL = 0;
+            }
         }
     }
 
     public void Reload()
     {
-        gUI.Reload(maxReloadTime, TEST.shootTimer);
+        gUI.Reload(maxReloadTime, reloadTimeL, reloadTimeR);
     }
 }

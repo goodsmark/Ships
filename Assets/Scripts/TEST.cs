@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class TEST : MonoBehaviour
 {
-    public static float shootTimer;
-
     TEST player;
     IShips shipTarget;
     MotherMainOfShips shipsMain;
@@ -32,12 +30,8 @@ public class TEST : MonoBehaviour
             Player.player_one.SWitchShip(ship);
         }
 
-        if (shootTimer == 0f || shootTimer < 5f)
-        {
-            shootTimer += Time.deltaTime;
-        }
+        
         gUI.Reload();
-        print(shootTimer);
         //shipTarget.Movement();
         //shipTarget.BalanceBoat();
         //if (Input.GetMouseButton(1))
