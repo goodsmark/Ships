@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Izanami : MotherMainOfShips, IShips
+public class Izanami : MotherMainOfShips, IShips, IGUI
 {
     [Header("Movement")]
     
@@ -15,6 +15,12 @@ public class Izanami : MotherMainOfShips, IShips
     [Header("Transform GUN`s of ship (LEft and Ride)")]
     [SerializeField] Transform[] _leftGuns;
     [SerializeField] Transform[] _rightGuns;
+    [Space(5f)]
+    [Header("Ammo")]
+    public float maxReloadTime;
+    public float reloadTime;
+
+    public GUI gUI;
 
     Trajectory trajectory;
     Transform motor;
@@ -69,7 +75,12 @@ public class Izanami : MotherMainOfShips, IShips
     {
         if (stay == 1)
         {
-            ammunitionMain.Fire(_rightGuns);
+            if (TEST.shootTimer == maxReloadTime)
+            {
+                ammunitionMain.Fire(_rightGuns);
+                TEST.shootTimer = 0;
+            }
+            
         }
         else if (stay == 2)
         {
@@ -77,5 +88,8 @@ public class Izanami : MotherMainOfShips, IShips
         }
     }
 
-
+    public void Reload()
+    {
+        gUI.Reload(maxReloadTime, TEST.shootTimer);
+    }
 }
