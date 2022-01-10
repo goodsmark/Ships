@@ -2580,6 +2580,10 @@ MonoBehaviour:
   - {fileID: 2511164861642606481}
   - {fileID: 1959780620269708639}
   - {fileID: 8190508484473706627}
+  maxReloadTime: 5
+  reloadTimeL: 0
+  reloadTimeR: 0
+  gUI: {fileID: 0}
 --- !u!1 &6078203102000218780
 GameObject:
   m_ObjectHideFlags: 0

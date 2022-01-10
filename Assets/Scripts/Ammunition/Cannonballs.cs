@@ -2,27 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannonballs : AmmunitionMain, IAmmunitionMain
-{
-    public int damage;
-    public float roundSpeed;
-
+public class Cannonballs : ShipAmmunitions                   
+{   
     [SerializeField]GameObject cannonbal;
-    Izanami izanami;
 
-    void Start() {
+    int damage;
+    float roundSpeed;
 
-        izanami = FindObjectOfType<Izanami>();
+
+    public Cannonballs(int damage,float roundSpeed, GameObject cannonbal) : base(damage, roundSpeed) 
+    {
+        this.roundSpeed = roundSpeed;
+        this.cannonbal = cannonbal;
+        this.damage = damage;
     }
 
     public void Fire(Transform[] gunPosition)
     {
-        
-       ammunitionMain.Fire(cannonbal, roundSpeed, gunPosition);
+        Fire(cannonbal, gunPosition);
     }
-    public void Fire(Transform gunPosition)
-    {
 
-        ammunitionMain.Fire(cannonbal, roundSpeed, gunPosition);
-    }
 }

@@ -8,17 +8,15 @@ public class TEST : MonoBehaviour
 {
     TEST player;
     IShips shipTarget;
-    MotherMainOfShips shipsMain;
     public List<IShips> collectionsShip;
     IGUI gUI;
 
     void Start()
     {
-        gUI = FindObjectOfType<Izanami>();
+        gUI = FindObjectOfType<Fernand>();
         collectionsShip = new List<IShips>();
-        collectionsShip.Add(FindObjectOfType<Izanami>());
-        //collectionsShip.Add(FindObjectOfType<Fernand>());
-        shipsMain  = FindObjectOfType<Fernand>();
+        //collectionsShip.Add(FindObjectOfType<Izanami>());
+        collectionsShip.Add(FindObjectOfType<Fernand>());
         
     }
 

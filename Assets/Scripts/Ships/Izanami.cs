@@ -27,7 +27,7 @@ public class Izanami : MotherMainOfShips, IShips, IGUI
     Transform motor;
     Rigidbody _playerRB;
     Transform trajectoryGO;
-    IAmmunitionMain ammunitionMain;
+    Cannonballs cannonbal;
     MotherMainOfShips izanami;
 
     byte stay = 0;
@@ -42,7 +42,7 @@ public class Izanami : MotherMainOfShips, IShips, IGUI
         trajectoryGO = transform.Find("Trajectory");
         startMotorRotation = motor.localRotation;
         trajectory = FindObjectOfType<Trajectory>();
-        ammunitionMain = FindObjectOfType<Cannonballs>();
+        cannonbal = FindObjectOfType<Cannonballs>();
     }
 
     void Update()
@@ -93,7 +93,7 @@ public class Izanami : MotherMainOfShips, IShips, IGUI
         {
             if (reloadTimeR >= maxReloadTime)
             {
-                ammunitionMain.Fire(_rightGuns);
+                cannonbal.Fire(_rightGuns);
                 reloadTimeR = 0;
             }
             
@@ -102,7 +102,7 @@ public class Izanami : MotherMainOfShips, IShips, IGUI
         {
             if (reloadTimeL >= maxReloadTime)
             {
-                ammunitionMain.Fire(_leftGuns);
+                cannonbal.Fire(_leftGuns);
                 reloadTimeL = 0;
             }
         }

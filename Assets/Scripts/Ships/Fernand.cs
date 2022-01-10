@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fernand : MotherMainOfShips, IShips
+public class Fernand : MotherMainOfShips, IShips, IGUI
 {
     [Header("Movement")]
     public float speed = 100;
@@ -15,12 +15,21 @@ public class Fernand : MotherMainOfShips, IShips
     [SerializeField] Transform[] _leftGuns;
     [SerializeField] Transform[] _rightGuns;
 
+    [Space(5f)]
+    [Header("Ammo")]
+    public float maxReloadTime;
+    public float reloadTimeL;
+    public float reloadTimeR;
+
+    public GUI gUI;
+
     Trajectory trajectory;
     Transform motor;
     Rigidbody _playerRB;
     Transform trajectoryGO;
     IAmmunitionMain ammunitionMain;
     MotherMainOfShips fernand;
+    Cannonballs cannonbal;
 
     byte stay = 0;
 
@@ -30,10 +39,26 @@ public class Fernand : MotherMainOfShips, IShips
         fernand = this;
         _playerRB = GetComponent<Rigidbody>();
         motor = transform.Find("motor");
-        trajectoryGO = transform.Find("Trajectory");
+        trajectoryGO = transform.Find("Trajectory"); 
         startMotorRotation = motor.localRotation;
         trajectory = FindObjectOfType<Trajectory>();
-        ammunitionMain = FindObjectOfType<Cannonballs>();
+        //ammunitionMain = FindObjectOfType<Cannonballs>();
+        cannonbal = FindObjectOfType<Cannonballs>();
+    }
+
+    void Update()
+    {
+        if (reloadTimeL < maxReloadTime)
+        {
+            reloadTimeL += Time.deltaTime;
+
+        }
+        if (reloadTimeR < maxReloadTime)
+        {
+            reloadTimeR += Time.deltaTime;
+        }
+
+        print(reloadTimeL);
     }
 
     public void Movement()
@@ -67,11 +92,24 @@ public class Fernand : MotherMainOfShips, IShips
     {
         if (stay == 1)
         {
-            ammunitionMain.Fire(_rightGuns);
+            if (reloadTimeR >= maxReloadTime)
+            {
+                cannonbal.Fire(_rightGuns);
+                reloadTimeR = 0;
+            }
+
         }
         else if (stay == 2)
         {
-            ammunitionMain.Fire(_leftGuns);
+            if (reloadTimeL >= maxReloadTime)
+            {
+                cannonbal.Fire(_leftGuns);
+                reloadTimeL = 0;
+            }
         }
+    }
+    public void Reload()
+    {
+        gUI.Reload(maxReloadTime, reloadTimeL, reloadTimeR);
     }
 }
