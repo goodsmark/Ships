@@ -5,10 +5,23 @@ using UnityEngine.UI;
 
 public class GUI : MonoBehaviour
 {
+    [Header("Slider`s for reload")]
+    [Space(5f)]
     public Slider leftSlider;
     public Slider rightSlider;
     public Slider upSlider;
     public Slider downSlider;
+
+    [Header("Slider`s for reload")]
+    [Space(5f)]
+    public Image pictureFrame;
+    public Image cannonballImage;
+    public Image bombImage;
+
+    private void Start()
+    {
+        pictureFrame.gameObject.SetActive(false);
+    }
     public void Reload(float maxReloadTime, float reloadTimeL = 1, float reloadTimeR = 1, float reloadTimeUp = 1, float reloadTimeDown = 1) 
     {
         if (leftSlider != null)
@@ -47,5 +60,23 @@ public class GUI : MonoBehaviour
         else
             downSlider.gameObject.active = false;
 
-    } 
+    }
+    public void SelectorWeapon()
+    {
+
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            print("нажата 1");
+            pictureFrame.gameObject.transform.position = cannonballImage.transform.position;
+            pictureFrame.gameObject.SetActive(true);
+            //cannonballImage.transform.localScale = new Vector3(1.5f, 1.5f, 0);
+        }
+        if (Input.GetKey(KeyCode.Alpha4))
+        {
+            print("нажата 4");
+            pictureFrame.gameObject.transform.position = bombImage.transform.position;
+            pictureFrame.gameObject.SetActive(true);
+            //cannonballImage.transform.localScale = new Vector3(1.5f, 1.5f, 0);
+        }
+    }
 }

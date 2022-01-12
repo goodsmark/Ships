@@ -57,7 +57,6 @@ public class Izanami : MotherMainOfShips, IShips, IGUI
             reloadTimeR += Time.deltaTime;
         }
 
-        print(reloadTimeL);
     }
 
     public void Movement()

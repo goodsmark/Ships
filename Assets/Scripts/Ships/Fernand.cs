@@ -57,8 +57,7 @@ public class Fernand : MotherMainOfShips, IShips, IGUI
         {
             reloadTimeR += Time.deltaTime;
         }
-
-        print(reloadTimeL);
+        gUI.SelectorWeapon();
     }
 
     public void Movement()
@@ -90,23 +89,47 @@ public class Fernand : MotherMainOfShips, IShips, IGUI
     }
     public void Fire()
     {
-        if (stay == 1)
+        if (Input.GetKey(KeyCode.Alpha1))
         {
-            if (reloadTimeR >= maxReloadTime)
+            if (stay == 1)
             {
-                cannonbal.Fire(_rightGuns);
-                reloadTimeR = 0;
-            }
+                if (reloadTimeR >= maxReloadTime)
+                {
+                    cannonbal.Fire(_rightGuns);
+                    reloadTimeR = 0;
+                }
 
-        }
-        else if (stay == 2)
-        {
-            if (reloadTimeL >= maxReloadTime)
+            }
+            else if (stay == 2)
             {
-                cannonbal.Fire(_leftGuns);
-                reloadTimeL = 0;
+                if (reloadTimeL >= maxReloadTime)
+                {
+                    cannonbal.Fire(_leftGuns);
+                    reloadTimeL = 0;
+                }
             }
         }
+        if (Input.GetKey(KeyCode.Alpha4))
+        {
+            if (stay == 1)
+            {
+                if (reloadTimeR >= maxReloadTime)
+                {
+                    cannonbal.Fire(_rightGuns);
+                    reloadTimeR = 0;
+                }
+
+            }
+            else if (stay == 2)
+            {
+                if (reloadTimeL >= maxReloadTime)
+                {
+                    cannonbal.Fire(_leftGuns);
+                    reloadTimeL = 0;
+                }
+            }
+        }
+
     }
     public void Reload()
     {
