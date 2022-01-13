@@ -5,10 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Cannonballs : ShipAmmunitions                   
 {   
-    [SerializeField]Rigidbody cannonbal;
+    [SerializeField] GameObject cannonbal;
 
     private void Awake()
     {
-        cannonbal = GetComponent<Rigidbody>();
+        cannonbal = GetComponent<GameObject>();
     }
 }

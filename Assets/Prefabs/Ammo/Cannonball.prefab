@@ -126,5 +126,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
-  RoundSpeed: 200
-  cannonbal: {fileID: 0}
+  RoundSpeed: 400
+  cannonbal: {fileID: 1144206961055093355}

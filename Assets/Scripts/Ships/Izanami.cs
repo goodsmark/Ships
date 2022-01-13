@@ -4,45 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Izanami : MotherMainOfShips, IShips, IGUI
+public class Izanami : MediumShips, IShips, IGUI
 {
-    [Header("Movement")]
-    
-    public float speed = 100f;
-    public float maxSpeed;
-    public float angularSpeed = 1000f;
-    [Space(5f)]
-    [Header("Transform GUN`s of ship (LEft and Ride)")]
-    [SerializeField] Transform[] _leftGuns;
-    [SerializeField] Transform[] _rightGuns;
-    [Space(5f)]
-    [Header("Ammo")]
-    public float maxReloadTime;
-    public float reloadTimeL;
-    public float reloadTimeR;
-
-    public GUI gUI;
-
-    Trajectory trajectory;
-    Transform motor;
-    Rigidbody _playerRB;
-    Transform trajectoryGO;
-    ShipAmmunitions cannonbal;
-    MotherMainOfShips izanami;
-
-    byte stay = 0;
-
-    protected Quaternion startMotorRotation;
-
     void Awake()
     {
-        izanami = this;
-        _playerRB = GetComponent<Rigidbody>();
-        motor = transform.Find("motor");
-        trajectoryGO = transform.Find("Trajectory");
-        startMotorRotation = motor.localRotation;
-        trajectory = FindObjectOfType<Trajectory>();
-        cannonbal = FindObjectOfType<Cannonballs>();
+        Starter();
     }
 
     void Update()
@@ -59,14 +25,14 @@ public class Izanami : MotherMainOfShips, IShips, IGUI
 
     }
 
-    public void Movement()
+    public new void Movement()
     {
-        izanami.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
+        base.Movement();
     }
 
-    public void BalanceBoat()
+    public new void BalanceBoat()
     {
-        izanami.BalanceBoat(_playerRB);
+        base.BalanceBoat();
     }
     public void WriteTrajectoryForSides()
     {
@@ -80,10 +46,10 @@ public class Izanami : MotherMainOfShips, IShips, IGUI
             Aiming.aiming.onAiming(_leftGuns);
         }
 
-        Vector3 direction = Aiming.aiming.GetTransformAim() - trajectoryGO.transform.position;
-        trajectoryGO.transform.rotation = Quaternion.LookRotation(direction, Vector3.forward);
-        Vector3 speed = trajectoryGO.transform.forward * 200;
-        trajectory.WriteTrajectory(trajectoryGO.transform.position, speed);
+        Vector3 direction = Aiming.aiming.GetTransformAim() - _trajectoryGO.transform.position;
+        _trajectoryGO.transform.rotation = Quaternion.LookRotation(direction, Vector3.forward);
+        Vector3 speed = _trajectoryGO.transform.forward * 200;
+        _trajectory.WriteTrajectory(_trajectoryGO.transform.position, speed);
 
     }
     public void Fire()

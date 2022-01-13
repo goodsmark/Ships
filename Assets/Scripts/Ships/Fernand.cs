@@ -2,51 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fernand : MotherMainOfShips, IShips, IGUI
+public class Fernand : HeavyShips, IShips, IGUI
 {
-    [Header("Movement")]
-    public float speed = 100;
-    public float maxSpeed;
-    public float angularSpeed = 500f;
-
-    [Space(5f)]
-
-    [Header("Transform GUN`s of ship (LEft and Ride)")]
-    [SerializeField] Transform[] _leftGuns;
-    [SerializeField] Transform[] _rightGuns;
-
-    [Space(5f)]
-    [Header("Ammo")]
-    public float maxReloadTime;
-    public float reloadTimeL;
-    public float reloadTimeR;
-
-    public GUI gUI;
-
-    Trajectory trajectory;
-    Transform motor;
-    Rigidbody _playerRB;
-    Transform trajectoryGO;
-    IAmmunitionMain ammunitionMain;
-    MotherMainOfShips fernand;
-    Cannonballs cannonbal;
-    Bomb bomb;
-
-    byte stay = 0;
-    bool isReloadedL;
-    bool isReloadedR;
-
-    protected Quaternion startMotorRotation;
-    void Awake()
+    void Start()
     {
-        fernand = this;
-        _playerRB = GetComponent<Rigidbody>();
-        motor = transform.Find("motor");
-        trajectoryGO = transform.Find("Trajectory"); 
-        startMotorRotation = motor.localRotation;
-        trajectory = FindObjectOfType<Trajectory>();
-        cannonbal = FindObjectOfType<Cannonballs>();
-        bomb = FindObjectOfType<Bomb>();
+        base.Starter();
     }
 
     void Update()
@@ -72,12 +32,12 @@ public class Fernand : MotherMainOfShips, IShips, IGUI
 
     public void Movement()
     {
-        fernand.Movement(_playerRB, motor, startMotorRotation, angularSpeed, speed);
+        base.Movement();
     }
 
     public void BalanceBoat()
     {
-        fernand.BalanceBoat(_playerRB);
+       base.BalanceBoat();
     }
     public void WriteTrajectoryForSides()
     {
@@ -93,10 +53,10 @@ public class Fernand : MotherMainOfShips, IShips, IGUI
         else
             stay = 0;
 
-        Vector3 direction = Aiming.aiming.GetTransformAim() - trajectoryGO.transform.position;
-        trajectoryGO.transform.rotation = Quaternion.LookRotation(direction, Vector3.forward);
-        Vector3 speed = trajectoryGO.transform.forward * cannonbal.GetRoundSpeed();
-        trajectory.WriteTrajectory(trajectoryGO.transform.position, speed);
+        Vector3 direction = Aiming.aiming.GetTransformAim() - _trajectoryGO.transform.position;
+        _trajectoryGO.transform.rotation = Quaternion.LookRotation(direction, Vector3.forward);
+        Vector3 speed = _trajectoryGO.transform.forward * cannonbal.GetRoundSpeed();
+        _trajectory.WriteTrajectory(_trajectoryGO.transform.position, speed);
 
     }
     //public void Fire()
@@ -148,7 +108,7 @@ public class Fernand : MotherMainOfShips, IShips, IGUI
     //}
     public void Fire()
     {
-        base.Fire(cannonbal, _leftGuns, cannonbal.GetRoundSpeed());       
+        base.Fire(cannonbal, _leftGuns);       
     }
     public void Reload()
     {

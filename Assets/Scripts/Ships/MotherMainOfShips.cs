@@ -5,75 +5,82 @@ using UnityEngine;
 public abstract class MotherMainOfShips : MonoBehaviour
 {
     [Header("Movement")]
-    public float speed = 100;
-    public float maxSpeed;
-    public float angularSpeed = 500f;
+    [SerializeField] protected float speed = 100;
+    [SerializeField] protected float maxSpeed;
+    [SerializeField] protected float angularSpeed = 500f;
+
 
     [Space(5f)]
-
-    [Header("Transform GUN`s of ship (LEft and Ride)")]
-    [SerializeField] Transform[] _leftGuns;
-    [SerializeField] Transform[] _rightGuns;
-
+    [Header("Reload")]
+    [SerializeField] protected float maxReloadTime;
+    [SerializeField] protected float reloadTimeL;
+    [SerializeField] protected float reloadTimeR;
+    
     [Space(5f)]
     [Header("Ammo")]
-    public float maxReloadTime;
-    public float reloadTimeL;
-    public float reloadTimeR;
+    [SerializeField] protected Cannonballs cannonbal;
+    [SerializeField] protected Bomb bomb;
 
     public GUI gUI;
+    
+    protected MotherMainOfShips _shipsMain;
 
-    Trajectory trajectory;
-    Transform motor;
-    Rigidbody _playerRB;
-    Transform trajectoryGO;
-    IAmmunitionMain ammunitionMain;
-    MotherMainOfShips fernand;
-    Cannonballs cannonbal;
-    Bomb bomb;
+    protected Trajectory _trajectory;
+    protected Transform _motor;
+    protected Rigidbody _playerRB;
+    protected Transform _trajectoryGO;
 
-    byte stay = 0;
-    bool isReloadedL;
-    bool isReloadedR;
+
+    protected byte stay = 0;
+    protected bool isReloadedL;
+    protected bool isReloadedR;
 
     protected Quaternion startMotorRotation;
-
-    public void BalanceBoat(Rigidbody rigidbody)
+    protected void Starter()
     {
-        if (rigidbody.transform.rotation.z > 0.60f || rigidbody.transform.rotation.z < -0.60f)
+        _shipsMain = this;
+        _playerRB = GetComponent<Rigidbody>();
+        _motor = transform.Find("motor");
+        _trajectoryGO = transform.Find("Trajectory");
+        startMotorRotation = _motor.localRotation;
+        _trajectory = FindObjectOfType<Trajectory>();
+    }
+    protected void BalanceBoat()
+    {
+        if (_playerRB.transform.rotation.z > 0.60f || _playerRB.transform.rotation.z < -0.60f)
         {
-            rigidbody.isKinematic = true;
-            rigidbody.transform.rotation = Quaternion.Euler(rigidbody.transform.rotation.x, rigidbody.transform.rotation.y, 0);
-            rigidbody.isKinematic = false;
+            _playerRB.isKinematic = true;
+            _playerRB.transform.rotation = Quaternion.Euler(_playerRB.transform.rotation.x, _playerRB.transform.rotation.y, 0);
+            _playerRB.isKinematic = false;
         }
     }
 
-    public void Movement(Rigidbody rigidbody, Transform motor, Quaternion startMotorRotation, float angularSpeed, float speed)
+    protected void Movement()
     {
         float moveY = Input.GetAxis("Horizontal");
-        
-        rigidbody.AddForceAtPosition(-moveY * rigidbody.transform.right * angularSpeed / 100f, motor.position);
 
-        var forward = Vector3.Scale(new Vector3(1, 0, 1), rigidbody.transform.forward);
+        _playerRB.AddForceAtPosition(-moveY * _playerRB.transform.right * angularSpeed / 100f, _motor.position);
+
+        var forward = Vector3.Scale(new Vector3(1, 0, 1), _playerRB.transform.forward);
 
 
         if (Input.GetKey(KeyCode.W))
-            ApplyForceToReachVelocity(rigidbody, forward * speed, 5f);
+            ApplyForceToReachVelocity(_playerRB, forward * speed, 5f);
         if (Input.GetKey(KeyCode.S))
-            ApplyForceToReachVelocity(rigidbody, forward * -3f, 5f);
+            ApplyForceToReachVelocity(_playerRB, forward * -3f, 5f);
 
 
-        motor.SetPositionAndRotation(motor.position, rigidbody.transform.rotation * startMotorRotation * Quaternion.Euler(0, 30f * moveY, 0));
+        _motor.SetPositionAndRotation(_motor.position, _playerRB.transform.rotation * startMotorRotation * Quaternion.Euler(0, 30f * moveY, 0));
 
 
-        bool movingForward = Vector3.Cross(rigidbody.transform.forward, rigidbody.velocity).y < 0;
+        bool movingForward = Vector3.Cross(_playerRB.transform.forward, _playerRB.velocity).y < 0;
 
-        rigidbody.velocity = Quaternion.AngleAxis(Vector3.SignedAngle(rigidbody.velocity, (movingForward ? 1f : 0f) * rigidbody.transform.forward, Vector3.up) * 0.1f, Vector3.up) * rigidbody.velocity;
+        _playerRB.velocity = Quaternion.AngleAxis(Vector3.SignedAngle(_playerRB.velocity, (movingForward ? 1f : 0f) * _playerRB.transform.forward, Vector3.up) * 0.1f, Vector3.up) * _playerRB.velocity;
 
 
     }
 
-    public void ApplyForceToReachVelocity(Rigidbody rigidbody, Vector3 velocity, float force = 1, ForceMode mode = ForceMode.Force)
+    protected void ApplyForceToReachVelocity(Rigidbody rigidbody, Vector3 velocity, float force = 1, ForceMode mode = ForceMode.Force)
     {
         if (force == 0 || velocity.magnitude == 0)
             return;
@@ -93,19 +100,19 @@ public abstract class MotherMainOfShips : MonoBehaviour
         }
     }
 
-    public void Fire(ShipAmmunitions ammunitions, Transform[] roundPosition, float RoundSpeed)
+    protected void Fire(ShipAmmunitions ammunitions, Transform[] roundPosition)
     {
         for (int i = 0; i < roundPosition.Length; i++)
         {
             ShipAmmunitions fire = Instantiate(ammunitions, roundPosition[i].transform.position, roundPosition[i].transform.rotation);
-            fire.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * RoundSpeed;
+            fire.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * ammunitions.GetRoundSpeed();
             Destroy(fire.gameObject, 10f);
         }
     }
-    public void Fire(ShipAmmunitions ammunitions, Transform roundPosition, float RoundSpeed)
+    protected void Fire(ShipAmmunitions ammunitions, Transform roundPosition)
     {
         ShipAmmunitions fire = Instantiate(ammunitions, roundPosition.transform.position, roundPosition.transform.rotation);
-        fire.GetComponent<Rigidbody>().velocity = roundPosition.transform.forward * RoundSpeed;
+        fire.GetComponent<Rigidbody>().velocity = roundPosition.transform.forward * ammunitions.GetRoundSpeed();
         Destroy(fire.gameObject, 10f);
     }
 }

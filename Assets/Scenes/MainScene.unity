@@ -3391,9 +3391,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1141432841}
     - target: {fileID: 811427796082610197, guid: 424e4c8f61aec8942bbde501eabfd189, type: 3}
+      propertyPath: bomb
+      value: 
+      objectReference: {fileID: -9076904885554046043, guid: c603d36b85f765445a71f86347c2a994, type: 3}
+    - target: {fileID: 811427796082610197, guid: 424e4c8f61aec8942bbde501eabfd189, type: 3}
       propertyPath: speed
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 811427796082610197, guid: 424e4c8f61aec8942bbde501eabfd189, type: 3}
+      propertyPath: cannonbal
+      value: 
+      objectReference: {fileID: 534853681962394363, guid: e096b9558740bd145a3e4326737b2f57, type: 3}
     - target: {fileID: 811427796082610197, guid: 424e4c8f61aec8942bbde501eabfd189, type: 3}
       propertyPath: angularSpeed
       value: 2000
