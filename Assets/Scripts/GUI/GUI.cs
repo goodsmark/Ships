@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GUI : MonoBehaviour
 {
+    public static string s = null;
     [Header("Slider`s for reload")]
     [Space(5f)]
     public Slider leftSlider;
@@ -66,6 +67,7 @@ public class GUI : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Alpha1))
         {
+            s = "c";
             print("нажата 1");
             pictureFrame.gameObject.transform.position = cannonballImage.transform.position;
             pictureFrame.gameObject.SetActive(true);
@@ -73,6 +75,7 @@ public class GUI : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Alpha4))
         {
+            s = "b";
             print("нажата 4");
             pictureFrame.gameObject.transform.position = bombImage.transform.position;
             pictureFrame.gameObject.SetActive(true);

@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Cannonballs : ShipAmmunitions                   
 {   
-    [SerializeField]GameObject cannonbal;
+    [SerializeField]Rigidbody cannonbal;
 
-    public void Fire(Transform[] gunPosition)
+    private void Awake()
     {
-
-        Fire(cannonbal, gunPosition);
+        cannonbal = GetComponent<Rigidbody>();
     }
-
 }

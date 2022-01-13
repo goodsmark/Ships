@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Bomb : ShipAmmunitions
 {
     [SerializeField] GameObject bomb;
 
-    void Fire(Transform[] gunPosition)
+    private void Start()
     {
-        Fire(bomb, gunPosition);
+        bomb = GetComponent<GameObject>();
     }
 }
+

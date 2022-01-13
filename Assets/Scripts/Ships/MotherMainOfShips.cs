@@ -4,19 +4,40 @@ using UnityEngine;
 
 public abstract class MotherMainOfShips : MonoBehaviour
 {
-    //public static MotherMainOfShips motherMainOfShips;
+    [Header("Movement")]
+    public float speed = 100;
+    public float maxSpeed;
+    public float angularSpeed = 500f;
 
-    //private void Awake()
-    //{
-    //    if (motherMainOfShips == null)
-    //    {
-    //        motherMainOfShips = this;
-    //    }
-    //    else
-    //    {
-    //        Destroy(this);
-    //    }
-    //}
+    [Space(5f)]
+
+    [Header("Transform GUN`s of ship (LEft and Ride)")]
+    [SerializeField] Transform[] _leftGuns;
+    [SerializeField] Transform[] _rightGuns;
+
+    [Space(5f)]
+    [Header("Ammo")]
+    public float maxReloadTime;
+    public float reloadTimeL;
+    public float reloadTimeR;
+
+    public GUI gUI;
+
+    Trajectory trajectory;
+    Transform motor;
+    Rigidbody _playerRB;
+    Transform trajectoryGO;
+    IAmmunitionMain ammunitionMain;
+    MotherMainOfShips fernand;
+    Cannonballs cannonbal;
+    Bomb bomb;
+
+    byte stay = 0;
+    bool isReloadedL;
+    bool isReloadedR;
+
+    protected Quaternion startMotorRotation;
+
     public void BalanceBoat(Rigidbody rigidbody)
     {
         if (rigidbody.transform.rotation.z > 0.60f || rigidbody.transform.rotation.z < -0.60f)
@@ -70,5 +91,21 @@ public abstract class MotherMainOfShips : MonoBehaviour
             var velocityProjectedToTarget = (velocity.normalized * Vector3.Dot(velocity, rigidbody.velocity) / velocity.magnitude);
             rigidbody.AddForce((velocity - velocityProjectedToTarget) * force, mode);
         }
+    }
+
+    public void Fire(ShipAmmunitions ammunitions, Transform[] roundPosition, float RoundSpeed)
+    {
+        for (int i = 0; i < roundPosition.Length; i++)
+        {
+            ShipAmmunitions fire = Instantiate(ammunitions, roundPosition[i].transform.position, roundPosition[i].transform.rotation);
+            fire.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * RoundSpeed;
+            Destroy(fire.gameObject, 10f);
+        }
+    }
+    public void Fire(ShipAmmunitions ammunitions, Transform roundPosition, float RoundSpeed)
+    {
+        ShipAmmunitions fire = Instantiate(ammunitions, roundPosition.transform.position, roundPosition.transform.rotation);
+        fire.GetComponent<Rigidbody>().velocity = roundPosition.transform.forward * RoundSpeed;
+        Destroy(fire.gameObject, 10f);
     }
 }
