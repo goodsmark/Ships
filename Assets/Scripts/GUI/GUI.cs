@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GUI : MonoBehaviour
 {
+    public static GUI gUI;
     public static string s = null;
     [Header("Slider`s for reload")]
     [Space(5f)]
@@ -19,8 +20,21 @@ public class GUI : MonoBehaviour
     public Image cannonballImage;
     public Image bombImage;
 
+
+    public Image panel;
+
     private void Start()
     {
+        panel.gameObject.SetActive(false);
+        if (gUI == null)
+        {
+            gUI = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+
         pictureFrame.gameObject.SetActive(false);
     }
     public void Reload(float maxReloadTime, float reloadTimeL = 1, float reloadTimeR = 1, float reloadTimeUp = 1, float reloadTimeDown = 1) 

@@ -23,8 +23,6 @@ public abstract class MotherMainOfShips : MonoBehaviour
 
     public GUI gUI;
     
-    protected MotherMainOfShips _shipsMain;
-
     protected Trajectory _trajectory;
     protected Transform _motor;
     protected Rigidbody _playerRB;
@@ -38,7 +36,6 @@ public abstract class MotherMainOfShips : MonoBehaviour
     protected Quaternion startMotorRotation;
     protected void Starter()
     {
-        _shipsMain = this;
         _playerRB = GetComponent<Rigidbody>();
         _motor = transform.Find("motor");
         _trajectoryGO = transform.Find("Trajectory");

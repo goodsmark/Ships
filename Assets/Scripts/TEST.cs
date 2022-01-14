@@ -30,6 +30,19 @@ public class TEST : MonoBehaviour
 
         
         gUI.Reload();
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            GUI.gUI.panel.gameObject.SetActive(true);
+            SlowMotion.slowMotion.StartSlowMo();
+        }
+        else if (Input.GetKeyUp(KeyCode.T))
+        {
+            GUI.gUI.panel.gameObject.SetActive(false);
+            SlowMotion.slowMotion.StopSlowMo();
+        }
+        print(Time.timeScale);
+        print(Time.fixedDeltaTime);
+
         //shipTarget.Movement();
         //shipTarget.BalanceBoat();
         //if (Input.GetMouseButton(1))
