@@ -52,7 +52,7 @@ public class Izanami : MediumShips, IShips, IGUI
         _trajectory.WriteTrajectory(_trajectoryGO.transform.position, speed);
 
     }
-    public void Fire()
+    public void Shooting()
     {
         if (stay == 1)
         {

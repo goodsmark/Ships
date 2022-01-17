@@ -112,4 +112,50 @@ public abstract class MotherMainOfShips : MonoBehaviour
         fire.GetComponent<Rigidbody>().velocity = roundPosition.transform.forward * ammunitions.GetRoundSpeed();
         Destroy(fire.gameObject, 10f);
     }
+    protected void Shooting() 
+    {
+        if (stay == 1)
+        {
+            if (isReloadedR)
+            {
+                Fire(cannonbal, _leftGuns);
+                reloadTimeR = Mathf.Floor(0.00000f);
+                isReloadedR = false;
+            }
+
+        }
+        else if (stay == 2)
+        {
+            if (isReloadedL)
+            {
+                Fire(cannonbal, _leftGuns);
+                reloadTimeL = Mathf.Floor(0.00000f);
+                isReloadedL = false;
+            }
+        }
+
+
+
+        if (stay == 1)
+        {
+            if (isReloadedR)
+            {
+                Fire(bomb, _leftGuns);
+                reloadTimeR = Mathf.Floor(0.00000f);
+                isReloadedR = false;
+            }
+
+        }
+        else if (stay == 2)
+        {
+            if (isReloadedL)
+            {
+                Fire(bomb, _leftGuns);
+                reloadTimeL = Mathf.Floor(0.00000f);
+                isReloadedL = false;
+            }
+        }
+        reloadTimeL = 0;
+        print("44");
+    }
 }

@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
             player.WriteTrajectoryForSides();
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                player.Fire();
+                player.Shooting();
             }
         }
     }

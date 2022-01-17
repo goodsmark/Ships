@@ -59,54 +59,8 @@ public class Fernand : HeavyShips, IShips, IGUI
         _trajectory.WriteTrajectory(_trajectoryGO.transform.position, speed);
 
     }
-    //public void Fire()
-    //{
-       
-    //    if (stay == 1)
-    //    {
-    //        if (isReloadedR)
-    //        {
-    //            cannonbal.Fire(_rightGuns);
-    //            reloadTimeR = Mathf.Floor(0.00000f);
-    //            isReloadedR = false;
-    //        }
-
-    //    }
-    //        else if (stay == 2)
-    //    {
-    //        if (isReloadedL)
-    //        {
-    //            cannonbal.Fire(_leftGuns);
-    //            reloadTimeL = Mathf.Floor(0.00000f);
-    //            isReloadedL = false;
-    //        }
-    //    }
-
-
-       
-    //    if (stay == 1)
-    //    {
-    //        if (isReloadedR)
-    //        {
-    //            bomb.Fire(_rightGuns);
-    //            reloadTimeR = Mathf.Floor(0.00000f);
-    //            isReloadedR = false;
-    //        }
-
-    //    }
-    //    else if (stay == 2)
-    //    {
-    //        if (isReloadedL)
-    //        {
-    //            bomb.Fire(_leftGuns);
-    //            reloadTimeL = Mathf.Floor(0.00000f);
-    //            isReloadedL = false;
-    //        }
-    //    }
-    //    reloadTimeL = 0;
-    //    print("44");
-    //}
-    public void Fire()
+  
+    public void Shooting()
     {
         base.Fire(cannonbal, _leftGuns);       
     }
