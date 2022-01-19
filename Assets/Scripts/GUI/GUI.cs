@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GUI : MonoBehaviour
 {
-    public static GUI gUI;
+    public static GUI Instantiate;
     public static string s = null;
     [Header("Slider`s for reload")]
     [Space(5f)]
@@ -21,59 +21,58 @@ public class GUI : MonoBehaviour
     public Image bombImage;
 
 
-    public Image panel;
+    public Image menuSelector;
 
     private void Start()
     {
-        panel.gameObject.SetActive(false);
-        if (gUI == null)
+        if (Instantiate == null)
         {
-            gUI = this;
+            Instantiate = this;
         }
         else
         {
             Destroy(this);
         }
-
+        menuSelector.gameObject.SetActive(false);
         pictureFrame.gameObject.SetActive(false);
     }
     public void Reload(float maxReloadTime, float reloadTimeL = 1, float reloadTimeR = 1, float reloadTimeUp = 1, float reloadTimeDown = 1) 
     {
         if (leftSlider != null)
         {
-            leftSlider.gameObject.active = true;
+            leftSlider.gameObject.SetActive(true);
             leftSlider.maxValue = maxReloadTime;
             leftSlider.value = reloadTimeL;
         }
         else
-            leftSlider.gameObject.active = false;
+            leftSlider.gameObject.SetActive(false);
 
         if (rightSlider != null)
         {
-            rightSlider.gameObject.active = true;
+            rightSlider.gameObject.SetActive(true);
             rightSlider.maxValue = maxReloadTime;
             rightSlider.value = reloadTimeR;
         }
         else
-            rightSlider.gameObject.active = false;
+            rightSlider.gameObject.SetActive(false);
 
         if (upSlider != null)
         {
-            upSlider.gameObject.active = true;
+            upSlider.gameObject.SetActive(true);
             upSlider.maxValue = maxReloadTime;
             upSlider.value = reloadTimeUp;
         }
         else
-            upSlider.gameObject.active = false;
+            upSlider.gameObject.SetActive(false);
 
         if (downSlider != null)
         {
-            downSlider.gameObject.active = true;
+            downSlider.gameObject.SetActive(true);
             downSlider.maxValue = maxReloadTime;
             downSlider.value = reloadTimeDown;
         }
         else
-            downSlider.gameObject.active = false;
+            downSlider.gameObject.SetActive(false);
 
     }
     public void SelectorWeapon()

@@ -30,12 +30,12 @@ public class Fernand : HeavyShips, IShips, IGUI
         gUI.SelectorWeapon();
     }
 
-    public void Movement()
+    public new void Movement()
     {
         base.Movement();
     }
 
-    public void BalanceBoat()
+    public new void BalanceBoat()
     {
        base.BalanceBoat();
     }

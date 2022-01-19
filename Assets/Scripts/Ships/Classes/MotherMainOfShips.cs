@@ -157,6 +157,5 @@ public abstract class MotherMainOfShips : MonoBehaviour
                 isReloadedL = false;
             }
         }
-        reloadTimeL = 0;
     }
 }
