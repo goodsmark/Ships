@@ -32,6 +32,8 @@ public abstract class MotherMainOfShips : MonoBehaviour
     protected byte stay = 0;
     protected bool isReloadedL;
     protected bool isReloadedR;
+    protected bool isReloadedUp;
+    protected bool isReloadedDown;
 
     protected Quaternion startMotorRotation;
     protected void Starter()
@@ -82,7 +84,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
         if (force == 0 || velocity.magnitude == 0)
             return;
 
-        velocity = velocity + velocity.normalized * 0.2f * rigidbody.drag;
+        velocity += velocity.normalized * 0.2f * rigidbody.drag;
 
         force = Mathf.Clamp(force, -rigidbody.mass / Time.fixedDeltaTime, rigidbody.mass / Time.fixedDeltaTime);
 
@@ -112,13 +114,13 @@ public abstract class MotherMainOfShips : MonoBehaviour
         fire.GetComponent<Rigidbody>().velocity = roundPosition.transform.forward * ammunitions.GetRoundSpeed();
         Destroy(fire.gameObject, 10f);
     }
-    protected void Shooting() 
+    protected void Shooting(Transform[] gunPositionL, Transform[] gunPositionR, Transform[] gunPositionUp = null, Transform[] gunPositionDown = null) 
     {
         if (stay == 1)
         {
             if (isReloadedR)
             {
-                Fire(cannonbal, _leftGuns);
+                Fire(cannonbal, gunPositionR);
                 reloadTimeR = Mathf.Floor(0.00000f);
                 isReloadedR = false;
             }
@@ -128,7 +130,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
         {
             if (isReloadedL)
             {
-                Fire(cannonbal, _leftGuns);
+                Fire(cannonbal, gunPositionL);
                 reloadTimeL = Mathf.Floor(0.00000f);
                 isReloadedL = false;
             }
@@ -140,7 +142,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
         {
             if (isReloadedR)
             {
-                Fire(bomb, _leftGuns);
+                Fire(bomb, gunPositionR);
                 reloadTimeR = Mathf.Floor(0.00000f);
                 isReloadedR = false;
             }
@@ -150,12 +152,11 @@ public abstract class MotherMainOfShips : MonoBehaviour
         {
             if (isReloadedL)
             {
-                Fire(bomb, _leftGuns);
+                Fire(bomb, gunPositionL);
                 reloadTimeL = Mathf.Floor(0.00000f);
                 isReloadedL = false;
             }
         }
         reloadTimeL = 0;
-        print("44");
     }
 }

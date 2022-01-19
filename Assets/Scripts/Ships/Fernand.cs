@@ -62,7 +62,7 @@ public class Fernand : HeavyShips, IShips, IGUI
   
     public void Shooting()
     {
-        base.Fire(cannonbal, _leftGuns);       
+        base.Shooting(_leftGuns, _rightGuns);
     }
     public void Reload()
     {
