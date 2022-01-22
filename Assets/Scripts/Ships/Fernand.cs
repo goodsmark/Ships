@@ -7,8 +7,9 @@ public class Fernand : HeavyShips, IShips, IGUI
     void Start()
     {
         base.Starter();
+        //_trajectory.gameObject.SetActive(false);
     }
-
+    //ֲÿקוסכאג
     void Update()
     {
         if (reloadTimeL < maxReloadTime || isReloadedR == false)
@@ -57,7 +58,7 @@ public class Fernand : HeavyShips, IShips, IGUI
         _trajectoryGO.transform.rotation = Quaternion.LookRotation(direction, Vector3.forward);
         Vector3 speed = _trajectoryGO.transform.forward * cannonbal.GetRoundSpeed();
         _trajectory.WriteTrajectory(_trajectoryGO.transform.position, speed);
-
+        
     }
   
     public void Shooting()

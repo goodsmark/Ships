@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(LineRenderer))]
+//[RequireComponent(typeof(LineRenderer))]
 public class Trajectory : MonoBehaviour
 {
     
     LineRenderer _lineRenderer;
     Vector3[] points = new Vector3[100];
-    private void Start()
+    private void Awake()
     { 
         _lineRenderer = GetComponent<LineRenderer>();
     }

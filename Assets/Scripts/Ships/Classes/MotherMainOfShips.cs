@@ -4,6 +4,16 @@ using UnityEngine;
 
 public abstract class MotherMainOfShips : MonoBehaviour
 {
+
+    [Space(5f)]
+    [Header("TEST")]
+    public int poolCount = 3;
+    public bool autoExpand = false;
+    public FireEffect fireEffect;
+    public Transform transPool;
+    private PoolMono<FireEffect> pool;
+
+
     [Header("Movement")]
     [SerializeField] protected float speed = 100;
     [SerializeField] protected float maxSpeed;
@@ -15,7 +25,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
     [SerializeField] protected float maxReloadTime;
     [SerializeField] protected float reloadTimeL;
     [SerializeField] protected float reloadTimeR;
-    
+
     [Space(5f)]
     [Header("Ammo")]
     [SerializeField] protected Cannonballs cannonbal;
@@ -43,6 +53,10 @@ public abstract class MotherMainOfShips : MonoBehaviour
         _trajectoryGO = transform.Find("Trajectory");
         startMotorRotation = _motor.localRotation;
         _trajectory = FindObjectOfType<Trajectory>();
+
+
+        pool = new PoolMono<FireEffect>(fireEffect, poolCount, transPool);
+        pool.autoExpand = autoExpand;
     }
     protected void BalanceBoat()
     {
@@ -103,17 +117,22 @@ public abstract class MotherMainOfShips : MonoBehaviour
     {
         for (int i = 0; i < roundPosition.Length; i++)
         {
-            ShipAmmunitions fire = Instantiate(ammunitions, roundPosition[i].transform.position, roundPosition[i].transform.rotation);
-            fire.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * ammunitions.GetRoundSpeed();
-            Destroy(fire.gameObject, 10f);
+            ShipAmmunitions firePref = Instantiate(ammunitions, roundPosition[i].transform.position, roundPosition[i].transform.rotation);
+            
+            firePref.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * ammunitions.GetRoundSpeed();
+
+            Destroy(firePref.gameObject, 10f);
         }
     }
-    protected void Fire(ShipAmmunitions ammunitions, Transform roundPosition)
+    protected void FireEffects(Transform[] roundPosition)
     {
-        ShipAmmunitions fire = Instantiate(ammunitions, roundPosition.transform.position, roundPosition.transform.rotation);
-        fire.GetComponent<Rigidbody>().velocity = roundPosition.transform.forward * ammunitions.GetRoundSpeed();
-        Destroy(fire.gameObject, 10f);
+        for (int i = 0; i < roundPosition.Length; i++)
+        {
+            fireEffect.transform.position = roundPosition[i].position;
+            fireEffect = pool.GetFreeElement();
+        }
     }
+
     protected void Shooting(Transform[] gunPositionL, Transform[] gunPositionR, Transform[] gunPositionUp = null, Transform[] gunPositionDown = null) 
     {
         if (stay == 1)
@@ -121,6 +140,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
             if (isReloadedR)
             {
                 Fire(cannonbal, gunPositionR);
+                FireEffects(gunPositionR);
                 reloadTimeR = Mathf.Floor(0.00000f);
                 isReloadedR = false;
             }
@@ -131,6 +151,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
             if (isReloadedL)
             {
                 Fire(cannonbal, gunPositionL);
+                FireEffects(gunPositionL);
                 reloadTimeL = Mathf.Floor(0.00000f);
                 isReloadedL = false;
             }

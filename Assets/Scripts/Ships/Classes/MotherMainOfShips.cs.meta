@@ -3,7 +3,12 @@ guid: d04371a976f4b3c43a571e905859cffe
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - fireEffect: {instanceID: 0}
+  - transPool: {instanceID: 0}
+  - cannonbal: {fileID: 534853681962394363, guid: e096b9558740bd145a3e4326737b2f57, type: 3}
+  - bomb: {fileID: -9076904885554046043, guid: c603d36b85f765445a71f86347c2a994, type: 3}
+  - gUI: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

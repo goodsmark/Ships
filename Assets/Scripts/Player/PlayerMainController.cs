@@ -15,8 +15,8 @@ public class PlayerMainController : MonoBehaviour
     {
         gUI = FindObjectOfType<Fernand>();
         collectionsShip = new List<IShips>();
-        //collectionsShip.Add(FindObjectOfType<Izanami>());
-        collectionsShip.Add(FindObjectOfType<Fernand>());
+        collectionsShip.Add(FindObjectOfType<Izanami>());
+        //collectionsShip.Add(FindObjectOfType<Fernand>());
         
     }
 
@@ -40,7 +40,7 @@ public class PlayerMainController : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             player.WriteTrajectoryForSides();
-            if (Input.GetKey(KeyCode.Mouse0))
+            if (Input.GetMouseButton(0))
             {
                 player.Shooting();
             }

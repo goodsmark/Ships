@@ -230,13 +230,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c463d34da9cd5c4ab9daf3bb8d77fb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  poolCount: 3
+  autoExpand: 0
+  fireEffect: {fileID: 0}
+  speed: 30
   maxSpeed: 0
-  angularSpeed: 500
+  angularSpeed: 2000
+  maxReloadTime: 3
+  reloadTimeL: 0
+  reloadTimeR: 0
+  cannonbal: {fileID: 534853681962394363, guid: e096b9558740bd145a3e4326737b2f57, type: 3}
+  bomb: {fileID: -9076904885554046043, guid: c603d36b85f765445a71f86347c2a994, type: 3}
+  gUI: {fileID: 0}
   _leftGuns:
   - {fileID: 4214421217035656369}
   _rightGuns:
   - {fileID: 1606496580685892465}
+  _upGuns: []
+  _downGuns: []
+  _artillery: {fileID: 0}
 --- !u!114 &9018355086657791674
 MonoBehaviour:
   m_ObjectHideFlags: 0

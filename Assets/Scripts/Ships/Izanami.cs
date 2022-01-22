@@ -13,16 +13,22 @@ public class Izanami : MediumShips, IShips, IGUI
 
     void Update()
     {
-        if (reloadTimeL < maxReloadTime)
+        if (reloadTimeL < maxReloadTime || isReloadedR == false)
         {
             reloadTimeL += Time.deltaTime;
-            
         }
-        if (reloadTimeR < maxReloadTime)
+        if (reloadTimeR < maxReloadTime || isReloadedL == false)
         {
             reloadTimeR += Time.deltaTime;
         }
-
+        if (reloadTimeL >= maxReloadTime)
+        {
+            isReloadedL = true;
+        }
+        if (reloadTimeR >= maxReloadTime)
+        {
+            isReloadedR = true;
+        }
     }
 
     public new void Movement()
@@ -52,25 +58,29 @@ public class Izanami : MediumShips, IShips, IGUI
         _trajectory.WriteTrajectory(_trajectoryGO.transform.position, speed);
 
     }
+    //public void Shooting()
+    //{
+    //    if (stay == 1)
+    //    {
+    //        if (reloadTimeR >= maxReloadTime)
+    //        {
+    //            //cannonbal.Fire(_rightGuns);
+    //            reloadTimeR = 0;
+    //        }
+
+    //    }
+    //    else if (stay == 2)
+    //    {
+    //        if (reloadTimeL >= maxReloadTime)
+    //        {
+    //            //cannonbal.Fire(_leftGuns);
+    //            reloadTimeL = 0;
+    //        }
+    //    }
+    //}
     public void Shooting()
     {
-        if (stay == 1)
-        {
-            if (reloadTimeR >= maxReloadTime)
-            {
-                //cannonbal.Fire(_rightGuns);
-                reloadTimeR = 0;
-            }
-            
-        }
-        else if (stay == 2)
-        {
-            if (reloadTimeL >= maxReloadTime)
-            {
-                //cannonbal.Fire(_leftGuns);
-                reloadTimeL = 0;
-            }
-        }
+        base.Shooting(_leftGuns, _rightGuns);
     }
 
     public void Reload()
