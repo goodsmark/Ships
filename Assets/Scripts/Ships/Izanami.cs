@@ -6,9 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Izanami : MediumShips, IShips, IGUI
 {
-    void Awake()
+    void Start()
     {
         Starter();
+        OnStart();
     }
 
     void Update()
@@ -58,26 +59,7 @@ public class Izanami : MediumShips, IShips, IGUI
         _trajectory.WriteTrajectory(_trajectoryGO.transform.position, speed);
 
     }
-    //public void Shooting()
-    //{
-    //    if (stay == 1)
-    //    {
-    //        if (reloadTimeR >= maxReloadTime)
-    //        {
-    //            //cannonbal.Fire(_rightGuns);
-    //            reloadTimeR = 0;
-    //        }
 
-    //    }
-    //    else if (stay == 2)
-    //    {
-    //        if (reloadTimeL >= maxReloadTime)
-    //        {
-    //            //cannonbal.Fire(_leftGuns);
-    //            reloadTimeL = 0;
-    //        }
-    //    }
-    //}
     public void Shooting()
     {
         base.Shooting(_leftGuns, _rightGuns);

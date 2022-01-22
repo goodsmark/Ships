@@ -4,21 +4,10 @@ using UnityEngine;
 
 public abstract class MotherMainOfShips : MonoBehaviour
 {
-
-    [Space(5f)]
-    [Header("TEST")]
-    public int poolCount = 3;
-    public bool autoExpand = false;
-    public FireEffect fireEffect;
-    public Transform transPool;
-    private PoolMono<FireEffect> pool;
-
-
     [Header("Movement")]
     [SerializeField] protected float speed = 100;
     [SerializeField] protected float maxSpeed;
     [SerializeField] protected float angularSpeed = 500f;
-
 
     [Space(5f)]
     [Header("Reload")]
@@ -31,21 +20,26 @@ public abstract class MotherMainOfShips : MonoBehaviour
     [SerializeField] protected Cannonballs cannonbal;
     [SerializeField] protected Bomb bomb;
 
+
+
     public GUI gUI;
     
     protected Trajectory _trajectory;
     protected Transform _motor;
     protected Rigidbody _playerRB;
     protected Transform _trajectoryGO;
-
-
     protected byte stay = 0;
     protected bool isReloadedL;
     protected bool isReloadedR;
     protected bool isReloadedUp;
     protected bool isReloadedDown;
+    [Header("Pool")]
+    protected PoolFireEffects _poolFireEffects;
+    protected PoolAmmunition _poolAmmunition;
 
     protected Quaternion startMotorRotation;
+
+    
     protected void Starter()
     {
         _playerRB = GetComponent<Rigidbody>();
@@ -53,10 +47,8 @@ public abstract class MotherMainOfShips : MonoBehaviour
         _trajectoryGO = transform.Find("Trajectory");
         startMotorRotation = _motor.localRotation;
         _trajectory = FindObjectOfType<Trajectory>();
-
-
-        pool = new PoolMono<FireEffect>(fireEffect, poolCount, transPool);
-        pool.autoExpand = autoExpand;
+        _poolFireEffects = FindObjectOfType<PoolFireEffects>();
+        _poolAmmunition = FindObjectOfType<PoolAmmunition>();
     }
     protected void BalanceBoat()
     {
@@ -117,19 +109,28 @@ public abstract class MotherMainOfShips : MonoBehaviour
     {
         for (int i = 0; i < roundPosition.Length; i++)
         {
-            ShipAmmunitions firePref = Instantiate(ammunitions, roundPosition[i].transform.position, roundPosition[i].transform.rotation);
-            
-            firePref.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * ammunitions.GetRoundSpeed();
+            _poolAmmunition._mainAmmo.transform.position = roundPosition[i].position;
+            _poolAmmunition._mainAmmo = _poolAmmunition._poolShipAmmunitions.GetFreeElement();
+            _poolAmmunition.CreateAmmo(ammunitions);
+            _poolAmmunition._mainAmmo.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * ammunitions.GetRoundSpeed();
 
-            Destroy(firePref.gameObject, 10f);
+
         }
+        //for (int i = 0; i < roundPosition.Length; i++)
+        //{
+        //    ShipAmmunitions firePref = Instantiate(ammunitions, roundPosition[i].transform.position, roundPosition[i].transform.rotation);
+            
+        //    firePref.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * ammunitions.GetRoundSpeed();
+
+        //    Destroy(firePref.gameObject, 10f);
+        //}
     }
     protected void FireEffects(Transform[] roundPosition)
     {
         for (int i = 0; i < roundPosition.Length; i++)
         {
-            fireEffect.transform.position = roundPosition[i].position;
-            fireEffect = pool.GetFreeElement();
+            _poolFireEffects._fireEffect.transform.position = roundPosition[i].position;
+            _poolFireEffects._fireEffect = _poolFireEffects._poolFireEffects.GetFreeElement();
         }
     }
 

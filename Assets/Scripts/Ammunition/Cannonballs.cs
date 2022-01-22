@@ -4,11 +4,24 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Cannonballs : ShipAmmunitions                   
-{   
-    [SerializeField] GameObject cannonbal;
+{
+    [SerializeField] float lifetime = 5f;
 
-    private void Awake()
+    private void OnEnable()
     {
-        cannonbal = GetComponent<GameObject>();
+        StartCoroutine(LifeTime());
+    }
+    private void OnDisable()
+    {
+        StopCoroutine(LifeTime());
+    }
+    IEnumerator LifeTime()
+    {
+        yield return new WaitForSeconds(lifetime);
+        Deactivate();
+    }
+    void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 }

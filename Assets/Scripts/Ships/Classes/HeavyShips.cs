@@ -10,4 +10,11 @@ public abstract class HeavyShips : MotherMainOfShips
     [SerializeField] protected Transform[] _upGuns;
     [SerializeField] protected Transform[] _downGuns;
     [SerializeField] protected Transform _artillery;
+
+
+    protected void OnStart()
+    {
+        _poolFireEffects._poolCount += _leftGuns.Length + _rightGuns.Length + _upGuns.Length + _downGuns.Length;
+    }
 }
+
