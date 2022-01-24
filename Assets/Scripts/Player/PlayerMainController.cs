@@ -6,40 +6,44 @@ using UnityEngine;
 
 public class PlayerMainController : MonoBehaviour
 {
-    PlayerMainController player;
-    IShips shipTarget;
+    [SerializeField] CameraController _cameraController;
+    Camera _maincamera;
     public List<IShips> collectionsShip;
     IGUI gUI;
 
     void Start()
     {
-        gUI = FindObjectOfType<Fernand>();
+        _maincamera = Camera.main;
+        gUI = FindObjectOfType<Izanami>();
         collectionsShip = new List<IShips>();
         collectionsShip.Add(FindObjectOfType<Izanami>());
         //collectionsShip.Add(FindObjectOfType<Fernand>());
         
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         foreach (var ship in collectionsShip)
         {
             SWitchShip(ship);
         }
-
-        
+    }
+    private void Update()
+    {
         gUI.Reload();
         ShowMenuSelector();
+        SwhowCursor();
     }
     public void SWitchShip(IShips player)
     {
 
         player.Movement();
         player.BalanceBoat();
+        player.RefreshTransformFireEffect();
         if (Input.GetMouseButton(1))
         {
             player.WriteTrajectoryForSides();
+
             if (Input.GetMouseButton(0))
             {
                 player.Shooting();
@@ -61,6 +65,19 @@ public class PlayerMainController : MonoBehaviour
         {
             GUI.Instantiate.menuSelector.gameObject.SetActive(false);
             SlowMotion.slowMotion.StopSlowMo();
+        }
+    }
+    void SwhowCursor()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            _cameraController.rotateAlways = false;
+            _cameraController.lockCursor = false;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            _cameraController.rotateAlways = true;
+            _cameraController.lockCursor = true;
         }
     }
 }

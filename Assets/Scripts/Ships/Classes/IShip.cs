@@ -6,4 +6,5 @@ public interface IShips
     void BalanceBoat();
     void WriteTrajectoryForSides();
     void Shooting();
+    void RefreshTransformFireEffect();
 }

@@ -14,7 +14,7 @@ public class GUI : MonoBehaviour
     public Slider upSlider;
     public Slider downSlider;
 
-    [Header("Slider`s for reload")]
+    [Header("Selected weapon")]
     [Space(5f)]
     public Image pictureFrame;
     public Image cannonballImage;

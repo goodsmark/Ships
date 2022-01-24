@@ -6,32 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Izanami : MediumShips, IShips, IGUI
 {
-    void Start()
-    {
-        Starter();
-        OnStart();
-    }
-
-    void Update()
-    {
-        if (reloadTimeL < maxReloadTime || isReloadedR == false)
-        {
-            reloadTimeL += Time.deltaTime;
-        }
-        if (reloadTimeR < maxReloadTime || isReloadedL == false)
-        {
-            reloadTimeR += Time.deltaTime;
-        }
-        if (reloadTimeL >= maxReloadTime)
-        {
-            isReloadedL = true;
-        }
-        if (reloadTimeR >= maxReloadTime)
-        {
-            isReloadedR = true;
-        }
-    }
-
     public new void Movement()
     {
         base.Movement();
@@ -55,7 +29,7 @@ public class Izanami : MediumShips, IShips, IGUI
 
         Vector3 direction = Aiming.aiming.GetTransformAim() - _trajectoryGO.transform.position;
         _trajectoryGO.transform.rotation = Quaternion.LookRotation(direction, Vector3.forward);
-        Vector3 speed = _trajectoryGO.transform.forward * 200;
+        Vector3 speed = _trajectoryGO.transform.forward * cannonbal.GetRoundSpeed();
         _trajectory.WriteTrajectory(_trajectoryGO.transform.position, speed);
 
     }
@@ -68,5 +42,16 @@ public class Izanami : MediumShips, IShips, IGUI
     public void Reload()
     {
         gUI.Reload(maxReloadTime, reloadTimeL, reloadTimeR);
+    }
+    public void RefreshTransformFireEffect()
+    {
+        if (stay == 1)
+        {
+            base.RefreshTransformFireEffect(_rightGuns);
+        }
+        else if (stay == 2)
+        {
+            base.RefreshTransformFireEffect(_leftGuns);
+        }
     }
 }

@@ -40,7 +40,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
     protected Quaternion startMotorRotation;
 
     
-    protected void Starter()
+    protected void Start()
     {
         _playerRB = GetComponent<Rigidbody>();
         _motor = transform.Find("motor");
@@ -49,6 +49,25 @@ public abstract class MotherMainOfShips : MonoBehaviour
         _trajectory = FindObjectOfType<Trajectory>();
         _poolFireEffects = FindObjectOfType<PoolFireEffects>();
         _poolAmmunition = FindObjectOfType<PoolAmmunition>();
+    }
+    protected void FixedUpdate()
+    {
+        if (reloadTimeL < maxReloadTime || isReloadedR == false)
+        {
+            reloadTimeL += Time.deltaTime;
+        }
+        if (reloadTimeR < maxReloadTime || isReloadedL == false)
+        {
+            reloadTimeR += Time.deltaTime;
+        }
+        if (reloadTimeL >= maxReloadTime)
+        {
+            isReloadedL = true;
+        }
+        if (reloadTimeR >= maxReloadTime)
+        {
+            isReloadedR = true;
+        }
     }
     protected void BalanceBoat()
     {
@@ -105,25 +124,15 @@ public abstract class MotherMainOfShips : MonoBehaviour
         }
     }
 
-    protected void Fire(ShipAmmunitions ammunitions, Transform[] roundPosition)
+    protected void Fire(Transform[] roundPosition)
     {
+
         for (int i = 0; i < roundPosition.Length; i++)
         {
-            _poolAmmunition._mainAmmo.transform.position = roundPosition[i].position;
-            _poolAmmunition._mainAmmo = _poolAmmunition._poolShipAmmunitions.GetFreeElement();
-            _poolAmmunition.CreateAmmo(ammunitions);
-            _poolAmmunition._mainAmmo.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * ammunitions.GetRoundSpeed();
-
-
+            _poolAmmunition._cannonballs.transform.position = roundPosition[i].position;
+            _poolAmmunition._cannonballs.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * cannonbal.GetRoundSpeed();
+            _poolAmmunition._cannonballs = _poolAmmunition._poolCannonballs.GetFreeElement();
         }
-        //for (int i = 0; i < roundPosition.Length; i++)
-        //{
-        //    ShipAmmunitions firePref = Instantiate(ammunitions, roundPosition[i].transform.position, roundPosition[i].transform.rotation);
-            
-        //    firePref.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * ammunitions.GetRoundSpeed();
-
-        //    Destroy(firePref.gameObject, 10f);
-        //}
     }
     protected void FireEffects(Transform[] roundPosition)
     {
@@ -133,6 +142,13 @@ public abstract class MotherMainOfShips : MonoBehaviour
             _poolFireEffects._fireEffect = _poolFireEffects._poolFireEffects.GetFreeElement();
         }
     }
+    public void RefreshTransformFireEffect(Transform[] roundPosition)
+    {
+        for (int i = 0; i < roundPosition.Length; i++)
+        {
+            _poolFireEffects._fireEffect.transform.position = roundPosition[i].position;
+        }
+    }
 
     protected void Shooting(Transform[] gunPositionL, Transform[] gunPositionR, Transform[] gunPositionUp = null, Transform[] gunPositionDown = null) 
     {
@@ -140,7 +156,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
         {
             if (isReloadedR)
             {
-                Fire(cannonbal, gunPositionR);
+                Fire(gunPositionR);
                 FireEffects(gunPositionR);
                 reloadTimeR = Mathf.Floor(0.00000f);
                 isReloadedR = false;
@@ -151,7 +167,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
         {
             if (isReloadedL)
             {
-                Fire(cannonbal, gunPositionL);
+                Fire(gunPositionL);
                 FireEffects(gunPositionL);
                 reloadTimeL = Mathf.Floor(0.00000f);
                 isReloadedL = false;
@@ -164,7 +180,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
         {
             if (isReloadedR)
             {
-                Fire(bomb, gunPositionR);
+                Fire( gunPositionR);
                 reloadTimeR = Mathf.Floor(0.00000f);
                 isReloadedR = false;
             }
@@ -174,7 +190,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
         {
             if (isReloadedL)
             {
-                Fire(bomb, gunPositionL);
+                Fire(gunPositionL);
                 reloadTimeL = Mathf.Floor(0.00000f);
                 isReloadedL = false;
             }

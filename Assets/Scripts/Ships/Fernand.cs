@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Fernand : HeavyShips, IShips, IGUI
 {
-    void Start()
-    {
-        base.Starter();
-        //_trajectory.gameObject.SetActive(false);
-    }
     //ֲÿקוסכאג
     void Update()
     {
@@ -84,5 +79,17 @@ public class Fernand : HeavyShips, IShips, IGUI
             reloadTimeR = Mathf.Floor(0.00000f);
         }
         
+    }
+
+    public void RefreshTransformFireEffect()
+    {
+        if (stay == 1)
+        {
+            base.RefreshTransformFireEffect(_rightGuns);
+        }
+        else if (stay == 2)
+        {
+            base.RefreshTransformFireEffect(_leftGuns);
+        }
     }
 }

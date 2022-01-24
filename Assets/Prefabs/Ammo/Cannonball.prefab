@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1144206961055093355}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.830257, y: 41.885452, z: 6.4485054}
+  m_LocalPosition: {x: 1280.8656, y: 3.8364172, z: 1220.2819}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -125,6 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ee68a82c7ca7447ac8cd0a16c2ee94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
-  RoundSpeed: 400
-  cannonbal: {fileID: 1144206961055093355}
+  Damage: 30
+  RoundSpeed: 100
+  lifetime: 5

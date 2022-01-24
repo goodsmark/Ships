@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b93e4eb89ef234796b2ba422977abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
-  RoundSpeed: 200
-  bomb: {fileID: 1350273254057190221}
+  Damage: 100
+  RoundSpeed: 100
+  lifetime: 5
 --- !u!1 &7754232640263395677
 GameObject:
   m_ObjectHideFlags: 0
