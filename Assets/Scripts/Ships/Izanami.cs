@@ -6,6 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Izanami : MediumShips, IShips, IGUI
 {
+    public Vector3 GetPosition()
+    {
+       return this.transform.position;
+    }
     public new void Movement()
     {
         base.Movement();
@@ -54,4 +58,6 @@ public class Izanami : MediumShips, IShips, IGUI
             base.RefreshTransformFireEffect(_leftGuns);
         }
     }
+
+
 }

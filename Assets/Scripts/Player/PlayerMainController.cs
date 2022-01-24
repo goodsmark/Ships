@@ -6,13 +6,23 @@ using UnityEngine;
 
 public class PlayerMainController : MonoBehaviour
 {
+    public static PlayerMainController _instantiate;
+    public Transform _playerPoint;
     [SerializeField] CameraController _cameraController;
     Camera _maincamera;
     public List<IShips> collectionsShip;
     IGUI gUI;
 
-    void Start()
+    void Awake()
     {
+        if (_instantiate == null)
+        {
+            _instantiate = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
         _maincamera = Camera.main;
         gUI = FindObjectOfType<Izanami>();
         collectionsShip = new List<IShips>();
@@ -26,6 +36,7 @@ public class PlayerMainController : MonoBehaviour
         foreach (var ship in collectionsShip)
         {
             SWitchShip(ship);
+            _playerPoint.position = ship.GetPosition();
         }
     }
     private void Update()
@@ -33,10 +44,11 @@ public class PlayerMainController : MonoBehaviour
         gUI.Reload();
         ShowMenuSelector();
         SwhowCursor();
+        
+
     }
     public void SWitchShip(IShips player)
     {
-
         player.Movement();
         player.BalanceBoat();
         player.RefreshTransformFireEffect();

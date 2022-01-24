@@ -5,6 +5,10 @@ using UnityEngine;
 public class Fernand : HeavyShips, IShips, IGUI
 {
     //ֲÿקוסכאג
+    public Vector3 GetPosition()
+    {
+        return this.transform.position;
+    }
     void Update()
     {
         if (reloadTimeL < maxReloadTime || isReloadedR == false)
