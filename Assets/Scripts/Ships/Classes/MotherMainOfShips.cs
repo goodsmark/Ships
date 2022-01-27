@@ -12,13 +12,17 @@ public abstract class MotherMainOfShips : MonoBehaviour
     [Space(5f)]
     [Header("Reload")]
     [SerializeField] protected float maxReloadTime;
-    [SerializeField] protected float reloadTimeL;
-    [SerializeField] protected float reloadTimeR;
+     protected float reloadTimeL;
+     protected float reloadTimeR;
     [Space(5f)]
     [Header("Reload Between Shoot")]
     [SerializeField] protected float minReloadBtwShoot;
     [SerializeField] protected float maxReloadBtwShoot;
     protected float timeToReadyFire;
+    [Space(5f)]
+    [Header("Fire sound")]
+    [SerializeField] protected AudioSource[] gunsL;
+    [SerializeField] protected AudioSource[] gunsR;
 
 
     [Space(5f)]

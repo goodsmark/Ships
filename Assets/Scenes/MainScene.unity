@@ -2764,13 +2764,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1366022526}
-  m_LocalRotation: {x: -0, y: -0.7221662, z: -0, w: 0.69171965}
-  m_LocalPosition: {x: 884, y: 43.7, z: 407.4}
+  m_LocalRotation: {x: -0, y: 0.013176927, z: -0, w: 0.9999132}
+  m_LocalPosition: {x: 1340, y: 43.7, z: 1613.8}
   m_LocalScale: {x: 161.54465, y: 93.584946, z: 15.27}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: -92.467, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 1.51, z: 0}
 --- !u!1 &1424964654
 GameObject:
   m_ObjectHideFlags: 0
@@ -4055,7 +4055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3977768097289011661, guid: 4496a3617169b794882b872144350ee5, type: 3}
       propertyPath: maxReloadTime
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3977768097289011661, guid: 4496a3617169b794882b872144350ee5, type: 3}
       propertyPath: maxReloadBtwShoot
@@ -4063,7 +4063,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3977768097289011661, guid: 4496a3617169b794882b872144350ee5, type: 3}
       propertyPath: minReloadBtwShoot
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4045284774745986553, guid: 4496a3617169b794882b872144350ee5, type: 3}
       propertyPath: m_Layer

@@ -32,9 +32,6 @@ public class PlayerMainController : MonoBehaviour
         collectionsShip = new List<IShips>();
         collectionsShip.Add(FindObjectOfType<Izanami>());
         //collectionsShip.Add(FindObjectOfType<Fernand>());
-
-
-
     }
 
     void FixedUpdate()
@@ -44,7 +41,6 @@ public class PlayerMainController : MonoBehaviour
             SWitchShip(ship);
             _playerPoint.position = ship.GetPosition();
         }
-
     }
     private void Update()
     {
