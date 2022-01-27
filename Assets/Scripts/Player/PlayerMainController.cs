@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class PlayerMainController : MonoBehaviour
 {
     public static PlayerMainController _instantiate;
     public Transform _playerPoint;
+
+
     [SerializeField] CameraController _cameraController;
     Camera _maincamera;
     public List<IShips> collectionsShip;
     IGUI gUI;
+
 
     void Awake()
     {
@@ -24,11 +26,15 @@ public class PlayerMainController : MonoBehaviour
             Destroy(this);
         }
         _maincamera = Camera.main;
+
+
         gUI = FindObjectOfType<Izanami>();
         collectionsShip = new List<IShips>();
         collectionsShip.Add(FindObjectOfType<Izanami>());
         //collectionsShip.Add(FindObjectOfType<Fernand>());
-        
+
+
+
     }
 
     void FixedUpdate()
@@ -38,14 +44,12 @@ public class PlayerMainController : MonoBehaviour
             SWitchShip(ship);
             _playerPoint.position = ship.GetPosition();
         }
+
     }
     private void Update()
     {
         gUI.Reload();
-        ShowMenuSelector();
         SwhowCursor();
-        
-
     }
     public void SWitchShip(IShips player)
     {
@@ -61,24 +65,18 @@ public class PlayerMainController : MonoBehaviour
                 player.Shooting();
             }
         }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            player.HideTrajectoryForSides();
+        }
+
+
         if (Input.GetKey(KeyCode.Alpha1))
         {
             //player.
         }
     }
-    void ShowMenuSelector()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            GUI.Instantiate.menuSelector.gameObject.SetActive(true);
-            SlowMotion.slowMotion.StartSlowMo();
-        }
-        else if (Input.GetKeyUp(KeyCode.T))
-        {
-            GUI.Instantiate.menuSelector.gameObject.SetActive(false);
-            SlowMotion.slowMotion.StopSlowMo();
-        }
-    }
+
     void SwhowCursor()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))

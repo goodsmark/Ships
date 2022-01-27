@@ -21,6 +21,7 @@ public class Izanami : MediumShips, IShips, IGUI
     }
     public void WriteTrajectoryForSides()
     {
+        _trajectory.gameObject.SetActive(true);
         stay = SideChanger.changer.ChangeSide(_playerRB.transform);
         if (stay == 1)
         {
@@ -35,7 +36,10 @@ public class Izanami : MediumShips, IShips, IGUI
         _trajectoryGO.transform.rotation = Quaternion.LookRotation(direction, Vector3.forward);
         Vector3 speed = _trajectoryGO.transform.forward * cannonbal.GetRoundSpeed();
         _trajectory.WriteTrajectory(_trajectoryGO.transform.position, speed);
-
+    }
+    public void HideTrajectoryForSides()
+    {
+        _trajectory.gameObject.SetActive(false);
     }
 
     public void Shooting()

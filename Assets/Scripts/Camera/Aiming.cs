@@ -59,6 +59,6 @@ public class Aiming : MonoBehaviour
             aimForGun.position = ray.origin + ray.direction * _aimOffsetY;
         }
     }
-    public Vector3 GetTransformAim() => aimForGun.transform.position;// + (Vector3.up *_aimOffsetY);
+    public Vector3 GetTransformAim() => aimForGun.transform.position;
 
 }

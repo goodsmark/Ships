@@ -21,8 +21,6 @@ public class GUI : MonoBehaviour
     public Image bombImage;
 
 
-    public Image menuSelector;
-
     private void Start()
     {
         if (Instantiate == null)
@@ -33,7 +31,6 @@ public class GUI : MonoBehaviour
         {
             Destroy(this);
         }
-        menuSelector.gameObject.SetActive(false);
         pictureFrame.gameObject.SetActive(false);
     }
     public void Reload(float maxReloadTime, float reloadTimeL = 1, float reloadTimeR = 1, float reloadTimeUp = 1, float reloadTimeDown = 1) 

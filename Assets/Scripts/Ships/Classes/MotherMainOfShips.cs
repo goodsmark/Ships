@@ -14,6 +14,12 @@ public abstract class MotherMainOfShips : MonoBehaviour
     [SerializeField] protected float maxReloadTime;
     [SerializeField] protected float reloadTimeL;
     [SerializeField] protected float reloadTimeR;
+    [Space(5f)]
+    [Header("Reload Between Shoot")]
+    [SerializeField] protected float minReloadBtwShoot;
+    [SerializeField] protected float maxReloadBtwShoot;
+    protected float timeToReadyFire;
+
 
     [Space(5f)]
     [Header("Ammo")]
@@ -52,22 +58,8 @@ public abstract class MotherMainOfShips : MonoBehaviour
     }
     protected void FixedUpdate()
     {
-        if (reloadTimeL < maxReloadTime || isReloadedR == false)
-        {
-            reloadTimeL += Time.deltaTime;
-        }
-        if (reloadTimeR < maxReloadTime || isReloadedL == false)
-        {
-            reloadTimeR += Time.deltaTime;
-        }
-        if (reloadTimeL >= maxReloadTime)
-        {
-            isReloadedL = true;
-        }
-        if (reloadTimeR >= maxReloadTime)
-        {
-            isReloadedR = true;
-        }
+        ReloadTimer();
+
     }
     protected void BalanceBoat()
     {
@@ -124,24 +116,43 @@ public abstract class MotherMainOfShips : MonoBehaviour
         }
     }
 
-    protected void Fire(Transform[] roundPosition)
+    void ReloadTimer()
     {
+        if (reloadTimeL < maxReloadTime || isReloadedL == false)
+        {
+            reloadTimeL += Time.deltaTime;
+        }
+        if (reloadTimeR < maxReloadTime || isReloadedR == false)
+        {
+            reloadTimeR += Time.deltaTime;
+        }
+        if (reloadTimeL >= maxReloadTime)
+        {
+            isReloadedL = true;
+        }
+        if (reloadTimeR >= maxReloadTime)
+        {
+            isReloadedR = true;
+        }
+    }
 
+
+    IEnumerator FireWithDelay(Transform[] roundPosition)
+    {
         for (int i = 0; i < roundPosition.Length; i++)
         {
+            timeToReadyFire = Random.Range(minReloadBtwShoot, maxReloadBtwShoot);
+            _poolFireEffects._fireEffect.transform.position = roundPosition[i].position;
+            _poolFireEffects._fireEffect = _poolFireEffects._poolFireEffects.GetFreeElement();
             _poolAmmunition._cannonballs.transform.position = roundPosition[i].position;
             _poolAmmunition._cannonballs.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * cannonbal.GetRoundSpeed();
             _poolAmmunition._cannonballs = _poolAmmunition._poolCannonballs.GetFreeElement();
+
+            yield return new WaitForSeconds(timeToReadyFire);
         }
+        yield break;
     }
-    protected void FireEffects(Transform[] roundPosition)
-    {
-        for (int i = 0; i < roundPosition.Length; i++)
-        {
-            _poolFireEffects._fireEffect.transform.position = roundPosition[i].position;
-            _poolFireEffects._fireEffect = _poolFireEffects._poolFireEffects.GetFreeElement();
-        }
-    }
+
     public void RefreshTransformFireEffect(Transform[] roundPosition)
     {
         for (int i = 0; i < roundPosition.Length; i++)
@@ -156,8 +167,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
         {
             if (isReloadedR)
             {
-                Fire(gunPositionR);
-                FireEffects(gunPositionR);
+                StartCoroutine(FireWithDelay(gunPositionR));
                 reloadTimeR = Mathf.Floor(0.00000f);
                 isReloadedR = false;
             }
@@ -167,30 +177,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
         {
             if (isReloadedL)
             {
-                Fire(gunPositionL);
-                FireEffects(gunPositionL);
-                reloadTimeL = Mathf.Floor(0.00000f);
-                isReloadedL = false;
-            }
-        }
-
-
-
-        if (stay == 1)
-        {
-            if (isReloadedR)
-            {
-                Fire( gunPositionR);
-                reloadTimeR = Mathf.Floor(0.00000f);
-                isReloadedR = false;
-            }
-
-        }
-        else if (stay == 2)
-        {
-            if (isReloadedL)
-            {
-                Fire(gunPositionL);
+                StartCoroutine(FireWithDelay(gunPositionL));
                 reloadTimeL = Mathf.Floor(0.00000f);
                 isReloadedL = false;
             }

@@ -59,7 +59,12 @@ public class Fernand : HeavyShips, IShips, IGUI
         _trajectory.WriteTrajectory(_trajectoryGO.transform.position, speed);
         
     }
-  
+    public void HideTrajectoryForSides()
+    {
+        _trajectory.gameObject.SetActive(false);
+    }
+
+
     public void Shooting()
     {
         base.Shooting(_leftGuns, _rightGuns);
@@ -96,4 +101,6 @@ public class Fernand : HeavyShips, IShips, IGUI
             base.RefreshTransformFireEffect(_leftGuns);
         }
     }
+
+
 }
