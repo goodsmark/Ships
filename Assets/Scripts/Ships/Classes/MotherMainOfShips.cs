@@ -20,9 +20,8 @@ public abstract class MotherMainOfShips : MonoBehaviour
     [SerializeField] protected float maxReloadBtwShoot;
     protected float timeToReadyFire;
     [Space(5f)]
-    [Header("Fire sound")]
-    [SerializeField] protected AudioSource[] gunsL;
-    [SerializeField] protected AudioSource[] gunsR;
+    [Header("Sounds 0f fire")]
+    [SerializeField] protected AudioSource[] fireFounds;
 
 
     [Space(5f)]
@@ -145,12 +144,16 @@ public abstract class MotherMainOfShips : MonoBehaviour
     {
         for (int i = 0; i < roundPosition.Length; i++)
         {
+            int playRandomFireShoot = Random.RandomRange(0, fireFounds.Length);
             timeToReadyFire = Random.Range(minReloadBtwShoot, maxReloadBtwShoot);
             _poolFireEffects._fireEffect.transform.position = roundPosition[i].position;
             _poolFireEffects._fireEffect = _poolFireEffects._poolFireEffects.GetFreeElement();
             _poolAmmunition._cannonballs.transform.position = roundPosition[i].position;
             _poolAmmunition._cannonballs.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * cannonbal.GetRoundSpeed();
             _poolAmmunition._cannonballs = _poolAmmunition._poolCannonballs.GetFreeElement();
+             fireFounds[playRandomFireShoot].Play();
+
+
 
             yield return new WaitForSeconds(timeToReadyFire);
         }
