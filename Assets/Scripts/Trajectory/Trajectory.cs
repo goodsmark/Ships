@@ -20,11 +20,13 @@ public class Trajectory : MonoBehaviour
         {
             float time = i * 0.1f;
             points[i] = origin + speed * time + Physics.gravity * time * time / 2f;
+
+            if (points[i].y < 0 )
+            {
+                _lineRenderer.positionCount = i + 1;
+                break;
+            }
         }
         _lineRenderer.SetPositions(points);
-    }
-
-    public void ClearTrajectory() {
-        _lineRenderer.SetPositions(new Vector3[0]);
     }
 }

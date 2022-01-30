@@ -4,8 +4,9 @@ using UnityEngine;
 public abstract class ShipAmmunitions : MonoBehaviour
 {
     [SerializeField] protected int Damage;
-    [SerializeField] protected float RoundSpeed;
     [SerializeField] protected float lifetime = 5f;
+
+    protected float RoundSpeed = 200f;
 
     public float GetRoundSpeed()
     {

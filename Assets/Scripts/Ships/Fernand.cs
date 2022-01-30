@@ -5,6 +5,11 @@ using UnityEngine;
 public class Fernand : HeavyShips, IShips, IGUI
 {
     //ֲÿקוסכאג
+    private void Start()
+    {
+        base.Start();
+        OnStart();
+    }
     public Vector3 GetPosition()
     {
         return this.transform.position;

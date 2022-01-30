@@ -13,7 +13,7 @@ public class PoolAmmunition : MonoBehaviour
     public PoolMono<Cannonballs> _poolCannonballs;
     public PoolMono<Bomb> _bombPool;
 
-    void Awake()
+    void Start()
     {
         _poolCannonballs = new PoolMono<Cannonballs>(_cannonballs, _poolCount, transform);
         _bombPool = new PoolMono<Bomb>(_bomb, _poolCount, transform);

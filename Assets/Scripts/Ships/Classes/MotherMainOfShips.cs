@@ -148,9 +148,10 @@ public abstract class MotherMainOfShips : MonoBehaviour
             timeToReadyFire = Random.Range(minReloadBtwShoot, maxReloadBtwShoot);
             _poolFireEffects._fireEffect.transform.position = roundPosition[i].position;
             _poolFireEffects._fireEffect = _poolFireEffects._poolFireEffects.GetFreeElement();
+            _poolAmmunition._cannonballs = _poolAmmunition._poolCannonballs.GetFreeElement();
             _poolAmmunition._cannonballs.transform.position = roundPosition[i].position;
             _poolAmmunition._cannonballs.GetComponent<Rigidbody>().velocity = roundPosition[i].transform.forward * cannonbal.GetRoundSpeed();
-            _poolAmmunition._cannonballs = _poolAmmunition._poolCannonballs.GetFreeElement();
+            
              fireFounds[playRandomFireShoot].Play();
 
 

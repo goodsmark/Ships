@@ -11,7 +11,7 @@ public class PoolFireEffects : MonoBehaviour
     [HideInInspector] public PoolMono<FireEffect> _poolFireEffects;
     [HideInInspector] public int _poolCount = 100;
 
-    void Awake()
+    void Start()
     {
         _poolFireEffects = new PoolMono<FireEffect>(_fireEffect, _poolCount, transform);
         _poolFireEffects.autoExpand = _autoExpand;

@@ -6,6 +6,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Izanami : MediumShips, IShips, IGUI
 {
+    private void Start()
+    {
+        base.Start();
+        OnStart();
+    }
     public Vector3 GetPosition()
     {
        return this.transform.position;
