@@ -8,7 +8,7 @@ public class Aiming : MonoBehaviour
 {
     public static Aiming aiming;
 
-    [SerializeField] float _aimOffset;
+    [SerializeField] Vector3 _aimOffset;
     [SerializeField] float _aimDistance;
     [SerializeField] Transform aimForGun;
     Camera _MainCamera;
@@ -29,25 +29,9 @@ public class Aiming : MonoBehaviour
         _MainCamera = Camera.main;
     }
 
-    public void onAiming(Transform gunPosition)
-    {
-        Ray ray = _MainCamera.ScreenPointToRay(Input.mousePosition);
-        Vector3 direction = (aimForGun.transform.position + Vector3.up * _aimOffset) - gunPosition.transform.position;
-        gunPosition.transform.rotation = Quaternion.LookRotation(direction, Vector3.forward);
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            aimForGun.position = ray.origin + ray.direction * _aimOffset;
-        }
-        else
-        {
-            aimForGun.position = ray.origin + ray.direction * _aimOffset;
-        }
-    }
     public void onAiming(Transform[] gunPosition)
     {
-        float distance;
-        Ray ray = _MainCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _MainCamera.ScreenPointToRay(Input.mousePosition + _aimOffset);
         for (int i = 0; i < gunPosition.Length; i++)
         {
             //distance = Vector3.Distance(aimForGun.transform.position, gunPosition[i].transform.position);
@@ -55,11 +39,11 @@ public class Aiming : MonoBehaviour
             gunPosition[i].transform.rotation = Quaternion.LookRotation(direction, -Vector3.forward);
             if (Physics.Raycast(ray, out hit, _aimDistance))
             {
-                aimForGun.position = ray.origin + ray.direction * _aimOffset;
+                aimForGun.transform.position = hit.point;
             }
             else
             {
-                aimForGun.position = ray.origin + ray.direction * _aimOffset;
+                aimForGun.transform.position = ray.origin + ray.direction * _aimDistance;
             }
         }
         
