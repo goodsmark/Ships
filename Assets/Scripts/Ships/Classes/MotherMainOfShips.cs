@@ -48,7 +48,18 @@ public abstract class MotherMainOfShips : MonoBehaviour
 
     protected Quaternion startMotorRotation;
 
-    
+    protected SailState _sailState;
+    bool IsPressedButtonW;
+    bool IsPressedButtonS;
+    protected enum SailState : sbyte
+    {
+        Reverse = -1,
+        Zero,
+        FirstGear,
+        SecondGear,
+        ThirdGear
+    }
+
     protected void Start()
     {
         _playerRB = GetComponent<Rigidbody>();
@@ -58,6 +69,7 @@ public abstract class MotherMainOfShips : MonoBehaviour
         _trajectory = FindObjectOfType<Trajectory>();
         _poolFireEffects = FindObjectOfType<PoolFireEffects>();
         _poolAmmunition = FindObjectOfType<PoolAmmunition>();
+        _sailState = SailState.Zero;
     }
     protected void FixedUpdate()
     {
@@ -76,47 +88,53 @@ public abstract class MotherMainOfShips : MonoBehaviour
 
     protected void Movement()
     {
-        float moveY = Input.GetAxis("Horizontal");
+        IsPressedButtonW = false;
+        IsPressedButtonS = false;
+        float moveY = Input.GetAxisRaw("Horizontal");
+        IsPressedButtonW = Input.GetKeyUp(KeyCode.W);
+        IsPressedButtonS = Input.GetKeyUp(KeyCode.S);
+
+        if (IsPressedButtonW && _sailState != SailState.ThirdGear)
+        {
+
+            _sailState++;
+            IsPressedButtonW = false;
+        }
+        if (IsPressedButtonS)
+        {
+            if (_sailState == SailState.Reverse)
+            {
+                return;
+            }
+            else
+            {
+                _sailState--;
+            }
+            IsPressedButtonS = false;
+        }
+
+        switch (_sailState)
+        {
+            case SailState.Reverse:
+                _playerRB.AddRelativeForce(Vector3.forward * -speed/2f);
+                break;
+            case SailState.Zero:
+                _playerRB.AddRelativeForce(Vector3.zero);
+                break;
+            case SailState.FirstGear:
+                _playerRB.AddRelativeForce(Vector3.forward * speed);
+                break;
+            case SailState.SecondGear:
+                _playerRB.AddRelativeForce(Vector3.forward * speed * 2);
+                break;
+            case SailState.ThirdGear:
+                _playerRB.AddRelativeForce(Vector3.forward * speed * 3);
+                break;
+        }
+
 
         _playerRB.AddForceAtPosition(-moveY * _playerRB.transform.right * angularSpeed / 100f, _motor.position);
 
-        var forward = Vector3.Scale(new Vector3(1, 0, 1), _playerRB.transform.forward);
-
-
-        if (Input.GetKey(KeyCode.W))
-            ApplyForceToReachVelocity(_playerRB, forward * speed, 5f);
-        if (Input.GetKey(KeyCode.S))
-            ApplyForceToReachVelocity(_playerRB, forward * -3f, 5f);
-
-
-        _motor.SetPositionAndRotation(_motor.position, _playerRB.transform.rotation * startMotorRotation * Quaternion.Euler(0, 30f * moveY, 0));
-
-
-        bool movingForward = Vector3.Cross(_playerRB.transform.forward, _playerRB.velocity).y < 0;
-
-        _playerRB.velocity = Quaternion.AngleAxis(Vector3.SignedAngle(_playerRB.velocity, (movingForward ? 1f : 0f) * _playerRB.transform.forward, Vector3.up) * 0.1f, Vector3.up) * _playerRB.velocity;
-
-
-    }
-
-    protected void ApplyForceToReachVelocity(Rigidbody rigidbody, Vector3 velocity, float force = 1, ForceMode mode = ForceMode.Force)
-    {
-        if (force == 0 || velocity.magnitude == 0)
-            return;
-
-        velocity += velocity.normalized * 0.2f * rigidbody.drag;
-
-        force = Mathf.Clamp(force, -rigidbody.mass / Time.fixedDeltaTime, rigidbody.mass / Time.fixedDeltaTime);
-
-        if (rigidbody.velocity.magnitude == 0)
-        {
-            rigidbody.AddForce(velocity * force, mode);
-        }
-        else
-        {
-            var velocityProjectedToTarget = (velocity.normalized * Vector3.Dot(velocity, rigidbody.velocity) / velocity.magnitude);
-            rigidbody.AddForce((velocity - velocityProjectedToTarget) * force, mode);
-        }
     }
 
     void ReloadTimer()

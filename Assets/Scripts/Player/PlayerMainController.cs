@@ -34,7 +34,7 @@ public class PlayerMainController : MonoBehaviour
         //collectionsShip.Add(FindObjectOfType<Fernand>());
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         foreach (var ship in collectionsShip)
         {
@@ -44,6 +44,7 @@ public class PlayerMainController : MonoBehaviour
     }
     private void Update()
     {
+
         gUI.Reload();
         SwhowCursor();
     }
